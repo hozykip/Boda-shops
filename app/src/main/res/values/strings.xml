@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">Boda Shops</string>
+    <!--MainActivity-->
+    <string name="HomeLbl">Home</string>
+    <string name="ItemsLbl">Items</string>
+    <string name="OrdersLbl">Orders</string>
+    <string name="AccountsLbl">Accounts</string>
+    <string name="NotificationsLbl">Notifications</string>
+    <string name="HistoryLbl">History</string>
+
+    <!--ItemsActivity-->
+    <string name="AllProductsLbl">All Products</string>
+    <string name="AddNewProductLbl">Add New Product</string>
+
+    <!--productList-->
+    <string name="tvHolder">Product</string>
+
+</resources>
