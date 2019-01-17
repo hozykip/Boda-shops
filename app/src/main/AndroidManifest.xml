@@ -21,7 +21,8 @@
         <activity android:name=".ItemsActivity" />
         <activity android:name=".AllProducts" />
         <activity android:name=".DriverRegistration" />
-        <activity android:name=".PhoneVerification"></activity>
+        <activity android:name=".PhoneVerification" />
+        <activity android:name=".VerifyingPhone"></activity>
     </application>
 
 </manifest>

@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@drawable/background"
     android:orientation="vertical"
     tools:context=".DriverRegistration">
 
@@ -14,6 +15,8 @@
         android:layout_height="wrap_content"
         android:text="Step 1 of 2"
         android:textAlignment="center"
+        android:textColor="@android:color/white"
+        android:textStyle="bold"
         android:textSize="22sp"
         android:padding="30dp"/>
 
@@ -42,10 +45,14 @@
                     android:layout_width="80dp"
                     android:layout_height="wrap_content"
                     android:text="Name:"
+                    android:textColor="@android:color/white"
+                    android:textStyle="bold"
                     android:textSize="18sp"/>
                 <EditText
+                    android:id="@+id/ownerNameET"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:textColor="@android:color/white"
                     android:inputType="text"/>
             </LinearLayout>
             <LinearLayout
@@ -58,10 +65,14 @@
                     android:layout_width="80dp"
                     android:layout_height="wrap_content"
                     android:text="Id No:"
+                    android:textColor="@android:color/white"
+                    android:textStyle="bold"
                     android:textSize="18sp"/>
                 <EditText
+                    android:id="@+id/ownerIdET"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:textColor="@android:color/white"
                     android:inputType="number"/>
             </LinearLayout>
             <LinearLayout
@@ -74,14 +85,19 @@
                     android:layout_width="80dp"
                     android:layout_height="wrap_content"
                     android:text="Phone:"
+                    android:textColor="@android:color/white"
+                    android:textStyle="bold"
                     android:textSize="18sp"/>
                 <EditText
+                    android:id="@+id/ownerPhoneNoET"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:textColor="@android:color/white"
                     android:inputType="phone"/>
             </LinearLayout>
 
             <Button
+                android:id="@+id/submitOwnerDetsBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"

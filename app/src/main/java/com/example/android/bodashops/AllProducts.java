@@ -23,7 +23,6 @@ import java.util.List;
 
 public class AllProducts extends AppCompatActivity {
 
-    private static final String URL_PRODUCTS = "http://192.168.0.100/bodashops/getProducts.php";
 
     TextView tv;
 
@@ -63,7 +62,7 @@ public class AllProducts extends AppCompatActivity {
          * Then we have a Response Listener and a Error Listener
          * In response listener we will get the JSON response as a String
          * */
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, URL_PRODUCTS,
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, Config.URL_PRODUCTS,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
