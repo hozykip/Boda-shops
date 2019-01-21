@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "1035975443602",
+    "firebase_url": "https://bodashops.firebaseio.com",
+    "project_id": "bodashops",
+    "storage_bucket": "bodashops.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1035975443602:android:02aae6cedff832c9",
+        "android_client_info": {
+          "package_name": "com.example.android.bodashops"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1035975443602-766p0urrfjnse0qvmur03lim3d1jnk5j.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.android.bodashops",
+            "certificate_hash": "205d81e0581ca12221e0a619c50d3c0fd52b7bf9"
+          }
+        },
+        {
+          "client_id": "1035975443602-it96fls6u9rs9rdrlkausocd8eim95an.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAhMEZhDZ-12hlmu6HkiFLdQPndkS6YzM4"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1035975443602-it96fls6u9rs9rdrlkausocd8eim95an.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

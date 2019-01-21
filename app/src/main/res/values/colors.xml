@@ -5,4 +5,12 @@
     <color name="colorAccent">#D81B60</color>
     <color name="tvColor">#d69546</color>
     <color name="bgColor">#9ccddc</color>
+
+    //MyTheme
+    <color name="colorPrimaryMyTheme">#047383</color>
+    <color name="colorPrimaryDarkMyTheme">#025764</color>
+    <color name="colorSecondaryMyTheme">#FFC107</color>
+    <color name="colorSecondaryAccentMyTheme">#FF9800</color>
+    <color name="colorErrorMyTheme">#FF5722</color>
+
 </resources>

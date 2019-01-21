@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".AllProducts">
+    tools:context=".AllProducts"
+    android:background="@drawable/bg5">
 
     <TextView
         android:id="@+id/textView"
@@ -17,10 +18,10 @@
         android:padding="6dp"
         android:background="@color/bgColor"
         />
-    <android.support.v7.widget.RecyclerView
+    <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/recyclerView">
 
-    </android.support.v7.widget.RecyclerView>
+    </androidx.recyclerview.widget.RecyclerView>
 </LinearLayout>

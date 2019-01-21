@@ -6,7 +6,7 @@
     <string name="OrdersLbl">Orders</string>
     <string name="AccountsLbl">Accounts</string>
     <string name="NotificationsLbl">Notifications</string>
-    <string name="HistoryLbl">History</string>
+
 
     <!--ItemsActivity-->
     <string name="AllProductsLbl">All Products</string>
@@ -14,5 +14,21 @@
 
     <!--productList-->
     <string name="tvHolder">Product</string>
+
+    <!--main menu options-->
+    <string name="orders">Orders</string>
+    <string name="items">Items</string>
+    <string name="notifications">Notifications</string>
+
+    <!--Drawer menu options-->
+    <string name="myAccount">My Account</string>
+    <string name="shopDetails">Shop details</string>
+    <string name="history">History</string>
+    <string name="settings">Settings</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_orders_fragment">Hello orders fragment</string>
+    <string name="hello_items_fragment">Hello items fragment</string>
+    <string name="hello_notifications_fragment">Hello notifications fragment</string>
 
 </resources>
