@@ -1,6 +1,4 @@
-package com.example.android.bodashops;
-
-import android.content.Intent;
+package com.example.android.bodashops.activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
@@ -9,9 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.net.Uri;
 import android.os.Bundle;
 
-import androidx.appcompat.widget.AppCompatTextView;
 import androidx.appcompat.widget.Toolbar;
-import androidx.cardview.widget.CardView;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
@@ -19,14 +15,16 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.LinearLayout;
 
+import com.example.android.bodashops.fragments.ItemsFragment;
+import com.example.android.bodashops.fragments.NotificationsFragment;
+import com.example.android.bodashops.fragments.OrdersFragment;
+import com.example.android.bodashops.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 
 public class MainActivity extends AppCompatActivity implements ItemsFragment.OnFragmentInteractionListener,
-        OrdersFragment.OnFragmentInteractionListener, NotificationsFragment.OnFragmentInteractionListener{
+        OrdersFragment.OnFragmentInteractionListener, NotificationsFragment.OnFragmentInteractionListener {
 
 
     private DrawerLayout mDrawerLayout;
@@ -43,6 +41,7 @@ public class MainActivity extends AppCompatActivity implements ItemsFragment.OnF
         mDrawerLayout = findViewById(R.id.drawer_layout);
         NavigationView mNavigationView = findViewById(R.id.nav_view);
         mBottomNavigationView = findViewById(R.id.bottomNavigationView2);
+
 
         //set the toolbar as the actionbar
         Toolbar toolbar = findViewById(R.id.toolbar);
