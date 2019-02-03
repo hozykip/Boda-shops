@@ -15,7 +15,9 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.view.MenuItem;
+import android.widget.Toast;
 
+import com.example.android.bodashops.fragments.AddProductFragment;
 import com.example.android.bodashops.fragments.ItemsFragment;
 import com.example.android.bodashops.fragments.NotificationsFragment;
 import com.example.android.bodashops.fragments.OrdersFragment;
@@ -24,7 +26,8 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 
 public class MainActivity extends AppCompatActivity implements ItemsFragment.OnFragmentInteractionListener,
-        OrdersFragment.OnFragmentInteractionListener, NotificationsFragment.OnFragmentInteractionListener {
+        OrdersFragment.OnFragmentInteractionListener, NotificationsFragment.OnFragmentInteractionListener,
+        AddProductFragment.OnFragmentInteractionListener {
 
 
     private DrawerLayout mDrawerLayout;
@@ -43,6 +46,7 @@ public class MainActivity extends AppCompatActivity implements ItemsFragment.OnF
         mBottomNavigationView = findViewById(R.id.bottomNavigationView2);
 
 
+        Toast.makeText(getApplicationContext(),"Activity.onCreate()", Toast.LENGTH_SHORT).show();
         //set the toolbar as the actionbar
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -104,6 +108,30 @@ public class MainActivity extends AppCompatActivity implements ItemsFragment.OnF
                 }
         );
 
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Toast.makeText(getApplicationContext(),"Activity.onStart()", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        Toast.makeText(getApplicationContext(),"Activity.onRestart()", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Toast.makeText(getApplicationContext(),"Activity.onPause()", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Toast.makeText(getApplicationContext(),"Activity.onResume()", Toast.LENGTH_SHORT).show();
     }
 
     @Override

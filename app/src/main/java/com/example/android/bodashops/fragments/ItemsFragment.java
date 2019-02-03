@@ -1,18 +1,22 @@
 package com.example.android.bodashops.fragments;
 
+import android.app.ActionBar;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,6 +30,8 @@ import com.example.android.bodashops.Config;
 import com.example.android.bodashops.R;
 import com.example.android.bodashops.adapters.ProductsAdapter;
 import com.example.android.bodashops.model.Product;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -51,8 +57,11 @@ public class ItemsFragment extends Fragment {
     private String JSON_URL = Config.URL_PRODUCTS;
     private ArrayList<Product> productsList;
     private RecyclerView recyclerView;
-    private StringRequest request;
+    private JsonArrayRequest request;
     private RequestQueue requestQueue;
+    public ProgressBar bar;
+    private CoordinatorLayout coordinatorLayout;
+    private FloatingActionButton mFloatingActionButtonAddItem;
 
     private Context context;
 
@@ -96,8 +105,13 @@ public class ItemsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        getActivity().setTitle("All Items");
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_items, container, false);
+        View view = inflater.inflate(R.layout.fragment_items, container, false);
+
+        mFloatingActionButtonAddItem = view.findViewById(R.id.floating_action_bar_add_item);
+
+        return view;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -110,48 +124,62 @@ public class ItemsFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        /*ActionBar actionBar = getActivity().getActionBar();
+        actionBar.setTitle("Products");*/
         productsList = new ArrayList<>();
         recyclerView = view.findViewById(R.id.recyclerView_items);
+        bar = view.findViewById(R.id.items_loading_progressbar);
+        coordinatorLayout = view.findViewById(R.id.items_coordinator_layout);
     }
 
     @Override
     public void onStart() {
         super.onStart();
         jsonRequest();
+        mFloatingActionButtonAddItem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AddProductFragment addProductFragment = new AddProductFragment();
+                FragmentManager fragmentManager = getFragmentManager();
+                fragmentManager.beginTransaction()
+                        .replace(R.id.frameLayout,addProductFragment,addProductFragment.getTag())
+                        .commit();
+            }
+        });
     }
 
     private void jsonRequest() {
 
-        request = new StringRequest(JSON_URL, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
+        request = new JsonArrayRequest(JSON_URL,
+                new Response.Listener<JSONArray>() {
+                    @Override
+                    public void onResponse(JSONArray response) {
 
-                try {
-                    JSONObject obj = new JSONObject(response);
-                    JSONArray array = obj.getJSONArray("serverResponse");
+                            try {
+                                for (int i = 0; i < response.length(); i++){
+                                    JSONObject object = response.getJSONObject(i);
 
-                    for (int i = 0; i < array.length(); i++){
-                        JSONObject object = array.getJSONObject(i);
+                                    Product product = new Product(
+                                            object.getString("productId"),
+                                            object.getString("productName"),
+                                            object.getString("price"),
+                                            object.getString("quantity"),
+                                            object.getString("image")
+                                    );
 
-                            Product product = new Product(
-                                    object.getString("productId"),
-                                    object.getString("productName"),
-                                    object.getString("price"),
-                                    object.getString("quantity"),
-                                    object.getString("image")
-                            );
+                                    productsList.add(product);
+                                }
 
-                            productsList.add(product);
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+
+                            setupRecyclerView(productsList);
+
+
                     }
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
                 }
-
-                setupRecyclerView(productsList);
-
-            }
-        }, new Response.ErrorListener() {
+        , new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
 
@@ -164,7 +192,11 @@ public class ItemsFragment extends Fragment {
     }
 
     private void setupRecyclerView(ArrayList<Product> list){
-        RecyclerView.Adapter mAdapter = new ProductsAdapter(getContext(),list);
+        if (list.isEmpty()){
+            Snackbar.make(coordinatorLayout,"No items!",Snackbar.LENGTH_LONG).show();
+            bar.setVisibility(View.GONE);
+        }
+        RecyclerView.Adapter mAdapter = new ProductsAdapter(getContext(),list,bar);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
 
         recyclerView.setHasFixedSize(true);
