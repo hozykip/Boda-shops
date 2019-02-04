@@ -17,7 +17,6 @@ import androidx.fragment.app.FragmentTransaction;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import com.example.android.bodashops.fragments.AddProductFragment;
 import com.example.android.bodashops.fragments.ItemsFragment;
 import com.example.android.bodashops.fragments.NotificationsFragment;
 import com.example.android.bodashops.fragments.OrdersFragment;
@@ -26,8 +25,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 
 public class MainActivity extends AppCompatActivity implements ItemsFragment.OnFragmentInteractionListener,
-        OrdersFragment.OnFragmentInteractionListener, NotificationsFragment.OnFragmentInteractionListener,
-        AddProductFragment.OnFragmentInteractionListener {
+        OrdersFragment.OnFragmentInteractionListener, NotificationsFragment.OnFragmentInteractionListener {
 
 
     private DrawerLayout mDrawerLayout;

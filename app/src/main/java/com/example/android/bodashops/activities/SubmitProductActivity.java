@@ -11,7 +11,16 @@ import android.view.View;
 import android.widget.LinearLayout;
 import androidx.appcompat.widget.Toolbar;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.example.android.bodashops.Config;
 import com.example.android.bodashops.R;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class SubmitProductActivity extends AppCompatActivity {
 
@@ -42,5 +51,32 @@ public class SubmitProductActivity extends AppCompatActivity {
 
     public void deleteRowField(View view) {
         parentLinearLayout.removeView((View) view.getParent());
+    }
+
+    private void uploadImage()
+    {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, Config.URL_PRODUCTS,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+
+                    }
+                })
+        {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+
+                //params.put("")
+
+                return super.getParams();
+            }
+        };
     }
 }

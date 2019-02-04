@@ -9,4 +9,13 @@ public class Config {
     public static final String URL_PRODUCTS = BASE_URL+"getProducts.php";
     public static final String IMG_BASE_URL = BASE_URL+"images/";
     public static final String GET_TYPES_URL = BASE_URL+"getTypes.php";
+
+    public static final String KEYPREFIX = "com.example.android.bodashops";
+
+    //ADD PRODUCT ACTIVITY KEYS
+    public static final String PRODNAMEKEY =KEYPREFIX + "PRODNAME";
+    public static final String QTYKEY = KEYPREFIX + "QTY";
+    public static final String PRICEKEY = KEYPREFIX + "PRICE";
+    public static final String TYPEKEY = KEYPREFIX + "TYPE";
+    public static final String IMAGEBITMAPSTRING = KEYPREFIX + "IMGBITMAPSTRING";
 }

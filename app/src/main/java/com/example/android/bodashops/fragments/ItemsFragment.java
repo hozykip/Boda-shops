@@ -1,7 +1,7 @@
 package com.example.android.bodashops.fragments;
 
-import android.app.ActionBar;
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -9,7 +9,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -17,15 +16,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
-import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.android.bodashops.activities.AddProductActivity;
 import com.example.android.bodashops.Config;
 import com.example.android.bodashops.R;
 import com.example.android.bodashops.adapters.ProductsAdapter;
@@ -139,11 +136,7 @@ public class ItemsFragment extends Fragment {
         mFloatingActionButtonAddItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AddProductFragment addProductFragment = new AddProductFragment();
-                FragmentManager fragmentManager = getFragmentManager();
-                fragmentManager.beginTransaction()
-                        .replace(R.id.frameLayout,addProductFragment,addProductFragment.getTag())
-                        .commit();
+                startActivity(new Intent(getContext(), AddProductActivity.class));
             }
         });
     }
