@@ -24,7 +24,7 @@ public class AddProductActivity extends AppCompatActivity implements View.OnClic
     Button mNext, mClear;
 
     private String name;
-    private int quantity, price, typeId;
+    private String quantity, price, typeId;
 
     ArrayList<String> types ;
     ArrayAdapter<String> adapter;
@@ -113,9 +113,9 @@ public class AddProductActivity extends AppCompatActivity implements View.OnClic
             return false;
         }
 
-        price = Integer.parseInt(strprice);
-        quantity = Integer.parseInt(mQty.getText().toString().trim());
-        typeId = spinner.getSelectedItemPosition();
+        price = strprice;
+        quantity = strqty;
+        typeId = String.valueOf(spinner.getSelectedItemPosition());
         return true;
     }
 }

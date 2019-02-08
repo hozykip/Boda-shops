@@ -13,13 +13,16 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Base64;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import com.example.android.bodashops.Config;
 import com.example.android.bodashops.R;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
 public class ProductImageActivity extends AppCompatActivity {
@@ -35,7 +38,8 @@ public class ProductImageActivity extends AppCompatActivity {
     private static String imgbitmapstr;
 
     private String prodName;
-    private int prodQty, prodType, prodPrice;
+    private String prodQty, prodPrice;
+    private String prodType;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -111,35 +115,49 @@ public class ProductImageActivity extends AppCompatActivity {
                 Bundle bundle = data.getExtras();
                 imgBitmap = (Bitmap) bundle.get("data");
 
+                imageToString(imgBitmap);
+
+
                 imageView.setImageBitmap(imgBitmap);
-                nxtBtn.setVisibility(View.VISIBLE);
 
             }else if (requestCode == SELECT_FILE){
 
-                Uri selctedImageUri = data.getData();
+                Uri selectedImageUri = data.getData();
 
 
                 try {
-                    imgBitmap = MediaStore.Images.Media.getBitmap(getContentResolver(),selctedImageUri);
+                    imgBitmap = MediaStore.Images.Media.getBitmap(getContentResolver(),selectedImageUri);
+                    imageToString(imgBitmap);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
 
-                imageView.setImageURI(selctedImageUri);
-                nxtBtn.setVisibility(View.VISIBLE);
+                imageView.setImageURI(selectedImageUri);
 
             }
         }
     }
 
+    private void imageToString(Bitmap bitmap)
+    {
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG,100,byteArrayOutputStream);
+
+        byte[] imagebytes = byteArrayOutputStream.toByteArray();
+        imgbitmapstr = Base64.encodeToString(imagebytes,Base64.DEFAULT);
+        nxtBtn.setVisibility(View.VISIBLE);
+    }
+
+
     private void gotoDets()
     {
         Intent i = getIntent();
         prodName = i.getStringExtra(Config.PRODNAMEKEY);
-        prodPrice = i.getIntExtra(Config.PRICEKEY,1);
-        prodQty = i.getIntExtra(Config.QTYKEY,1);
-        prodType = i.getIntExtra(Config.TYPEKEY,1);
+        prodPrice = i.getStringExtra(Config.PRICEKEY);
+        prodQty = i.getStringExtra(Config.QTYKEY);
+        prodType = i.getStringExtra(Config.TYPEKEY);
 
+        if (!imgbitmapstr.isEmpty() && imgbitmapstr != "" && imgbitmapstr != null){
 
         Intent intent = new Intent(ProductImageActivity.this, SubmitProductActivity.class);
         intent.putExtra(Config.IMAGEBITMAPSTRING, imgbitmapstr);
@@ -148,5 +166,8 @@ public class ProductImageActivity extends AppCompatActivity {
         intent.putExtra(Config.QTYKEY,prodQty);
         intent.putExtra(Config.TYPEKEY,prodType);
         startActivity(intent);
+        }else {
+            Toast.makeText(ProductImageActivity.this, "Take a photo or select an image", Toast.LENGTH_LONG).show();
+        }
     }
 }
