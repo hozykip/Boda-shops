@@ -35,6 +35,9 @@ public class ProductDetailsActivity extends AppCompatActivity {
         Intent intent = getIntent();
 
         String title = intent.getStringExtra("product_name");
+        String qty = intent.getStringExtra("product_qty");
+        String id = intent.getStringExtra("product_id");
+        String price = intent.getStringExtra("product_price");
         String img_name = intent.getStringExtra("product_img");
         String img_url = Config.IMG_BASE_URL + img_name;
 
@@ -44,6 +47,9 @@ public class ProductDetailsActivity extends AppCompatActivity {
         options = new RequestOptions().placeholder(R.drawable.loading_shape).error(R.drawable.image_error);
 
         Glide.with(getApplicationContext()).load(img_url).apply(options).into(mImageView);
+        mProductName.setText(title);
+        mQty.setText("In stock: "+qty);
+        mPrice.setText("Ksh. "+price);
 
     }
 }
