@@ -20,7 +20,7 @@ import com.android.volley.toolbox.Volley;
 import com.example.android.bodashops.Config;
 import com.example.android.bodashops.R;
 import com.example.android.bodashops.adapters.ProductsAdapter;
-import com.example.android.bodashops.model.Product;
+import com.example.android.bodashops.model.ProductModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -33,7 +33,7 @@ import java.util.ArrayList;
 public class ItemsActivity extends AppCompatActivity {
 
     private String JSON_URL = Config.URL_PRODUCTS;
-    private ArrayList<Product> productsList;
+    private ArrayList<ProductModel> productsList;
     private RecyclerView recyclerView;
     private JsonArrayRequest request;
     private RequestQueue requestQueue;
@@ -77,7 +77,7 @@ public class ItemsActivity extends AppCompatActivity {
                             for (int i = 0; i < response.length(); i++){
                                 JSONObject object = response.getJSONObject(i);
 
-                                Product product = new Product(
+                                ProductModel product = new ProductModel(
                                         object.getString("productId"),
                                         object.getString("productName"),
                                         object.getString("price"),
@@ -108,7 +108,7 @@ public class ItemsActivity extends AppCompatActivity {
         requestQueue.add(request);
 
     }
-    private void setupRecyclerView(ArrayList<Product> list){
+    private void setupRecyclerView(ArrayList<ProductModel> list){
         if (list.isEmpty()){
             Snackbar.make(coordinatorLayout,"No items!",Snackbar.LENGTH_LONG).show();
             bar.setVisibility(View.GONE);

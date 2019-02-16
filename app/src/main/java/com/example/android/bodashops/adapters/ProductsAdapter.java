@@ -12,13 +12,12 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.android.bodashops.Config;
 import com.example.android.bodashops.activities.ProductDetailsActivity;
-import com.example.android.bodashops.model.Product;
+import com.example.android.bodashops.model.ProductModel;
 import com.example.android.bodashops.R;
 
 import java.util.List;
@@ -26,11 +25,11 @@ import java.util.List;
 public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.ProductViewHolder> {
 
     private Context mCtx;
-    private List<Product> productList;
+    private List<ProductModel> productList;
     private RequestOptions options;
     ProgressBar bar;
 
-    public ProductsAdapter(Context mCtx, List<Product> productList, ProgressBar progressBar) {
+    public ProductsAdapter(Context mCtx, List<ProductModel> productList, ProgressBar progressBar) {
         this.mCtx = mCtx;
         this.productList = productList;
         this.bar = progressBar;
@@ -67,7 +66,7 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.Produc
 
     @Override
     public void onBindViewHolder(ProductViewHolder holder, int position) {
-        Product product = productList.get(position);
+        ProductModel product = productList.get(position);
 
         holder.tv_price.setText("Ksh. "+product.getPrice());
         holder.tv_prodName.setText(product.getProductName());

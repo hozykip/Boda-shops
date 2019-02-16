@@ -11,9 +11,20 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.android.bodashops.Config;
+import com.example.android.bodashops.ItemsHelper;
 import com.example.android.bodashops.R;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -26,7 +37,7 @@ public class AddProductActivity extends AppCompatActivity implements View.OnClic
     private String name;
     private String quantity, price, typeId;
 
-    ArrayList<String> types ;
+    //ArrayList<String> types ;
     ArrayAdapter<String> adapter;
 
     @Override
@@ -52,8 +63,60 @@ public class AddProductActivity extends AppCompatActivity implements View.OnClic
         mNext = findViewById(R.id.AddProduct_NextBtn);
         mClear = findViewById(R.id.AddProduct_clearBtn);
 
+
+
         mNext.setOnClickListener(this);
         mClear.setOnClickListener(this);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        setTypes();
+    }
+
+    private void setTypes()
+    {
+        final ArrayList<String> producttypes = new ArrayList<>();
+        JsonArrayRequest jsonArrayRequest;
+        RequestQueue requestQueue;
+        jsonArrayRequest = new JsonArrayRequest(Config.GET_TYPES_URL,
+                new Response.Listener<JSONArray>() {
+                    @Override
+                    public void onResponse(JSONArray response) {
+
+                        for (int i = 0; i < response.length(); i++){
+                            try {
+                                JSONObject object = response.getJSONObject(i);
+                                int index = Integer.parseInt(object.getString("typeId"));
+                                String type = object.getString("type");
+
+                                producttypes.add(type);
+
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        error.printStackTrace();
+                    }
+                });
+
+        requestQueue = Volley.newRequestQueue(this);
+        requestQueue.add(jsonArrayRequest);
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(
+                AddProductActivity.this,
+                android.R.layout.simple_spinner_item,
+                producttypes
+        );
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
     }
 
     @Override

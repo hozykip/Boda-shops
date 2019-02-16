@@ -19,7 +19,7 @@ import com.example.android.bodashops.fragments.NotificationsFragment;
 import com.example.android.bodashops.R;
 import com.google.android.material.navigation.NavigationView;
 
-public class MainActivity extends AppCompatActivity implements ItemsFragment.OnFragmentInteractionListener,
+public class MainActivity extends AppCompatActivity implements
         NotificationsFragment.OnFragmentInteractionListener {
 
 

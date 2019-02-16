@@ -46,7 +46,8 @@
                     android:layout_height="match_parent"
                     android:paddingRight="16dp"
                     android:paddingLeft="16dp"
-                    android:src="@drawable/ic_mode_edit_black_24dp"/>
+                    android:src="@drawable/ic_mode_edit_black_24dp"
+                    android:tint="@color/colorSecondaryAccentMyTheme"/>
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -62,7 +63,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
                 android:orientation="horizontal"
                 android:layout_marginBottom="30dp">
                 <androidx.appcompat.widget.AppCompatImageView
@@ -70,13 +71,14 @@
                     android:layout_height="match_parent"
                     android:paddingRight="16dp"
                     android:paddingLeft="16dp"
-                    android:src="@drawable/ic_details_black_24dp" />
+                    android:src="@drawable/ic_details_black_24dp"
+                    android:tint="@color/colorSecondaryAccentMyTheme"/>
 
-                <androidx.appcompat.widget.AppCompatSpinner
+                <Spinner
                     android:id="@+id/AddProduct_spinner_types"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:padding="8dp" />
+                    android:layout_height="40dp"
+                    android:padding="8dp"/>
             </LinearLayout>
 
             <LinearLayout
@@ -89,7 +91,8 @@
                     android:layout_height="match_parent"
                     android:paddingRight="16dp"
                     android:paddingLeft="16dp"
-                    android:src="@drawable/ic_mode_edit_black_24dp"/>
+                    android:src="@drawable/ic_list_black_24dp"
+                    android:tint="@color/colorSecondaryAccentMyTheme"/>
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -114,7 +117,8 @@
                     android:layout_height="match_parent"
                     android:paddingRight="16dp"
                     android:paddingLeft="16dp"
-                    android:src="@drawable/ic_attach_money_black_24dp"/>
+                    android:src="@drawable/ic_attach_money_black_24dp"
+                    android:tint="@color/colorSecondaryAccentMyTheme"/>
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -139,7 +143,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_marginRight="16dp"
-                    android:text="Next" />
+                    android:text="Next"
+                    android:backgroundTint="@color/colorPrimaryMyTheme"/>
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/AddProduct_clearBtn"

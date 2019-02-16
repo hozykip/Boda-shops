@@ -1,9 +1,9 @@
 package com.example.android.bodashops.model;
 
-public class Product {
+public class ProductModel {
     private String productId, ProductName, price, quantity, image;
 
-    public Product(String prodId, String productName, String price, String quantity, String image) {
+    public ProductModel(String prodId, String productName, String price, String quantity, String image) {
         this.productId = prodId;
         this.ProductName = productName;
         this.price = price;
