@@ -2,19 +2,17 @@ package com.example.android.bodashops.activities;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Toast;
-
-import androidx.appcompat.widget.Toolbar;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -33,14 +31,16 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class SubmitProductActivity extends AppCompatActivity {
+public class UpdateProductActivity extends AppCompatActivity {
 
     LinearLayout parentLinearLayout;
     private Button submitBtn;
     private ArrayList attributes;
 
     private String productName, imgBitmapStr;
-    private String productQty, productPrice, productType;
+    private String productQty, productPrice, productType, prodId;
+
+    private Intent intent;
 
     private JSONArray jsonArrayAttributes;
 
@@ -49,10 +49,10 @@ public class SubmitProductActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_submit_product);
+        setContentView(R.layout.activity_update_product);
 
-        parentLinearLayout = findViewById(R.id.parentLinearLayout);
-        submitBtn = findViewById(R.id.submitProductBtn);
+        parentLinearLayout = findViewById(R.id.parentLinearLayoutUpdateProduct);
+        submitBtn = findViewById(R.id.submitProductBtnUpdateProduct);
         submitBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -60,15 +60,12 @@ public class SubmitProductActivity extends AppCompatActivity {
             }
         });
 
-        toolbar = (Toolbar) findViewById(R.id.toolbarSubmitActivity);
+        toolbar = (Toolbar) findViewById(R.id.toolbarUpdateProduct);
         setSupportActionBar(toolbar);
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setTitle("Submit products");
-
-        //TODO: display old attributes on the fields
-
+        actionBar.setTitle("Update product");
     }
 
     private void getProductDetails()
@@ -77,18 +74,31 @@ public class SubmitProductActivity extends AppCompatActivity {
         if (!allAttr.isEmpty())
         {
             //product main details
-            Intent intent = getIntent();
+            intent = getIntent();
             productName = intent.getStringExtra(Config.PRODNAMEKEY);
             productPrice = intent.getStringExtra(Config.PRICEKEY);
             productQty = intent.getStringExtra(Config.QTYKEY);
             productType = intent.getStringExtra(Config.TYPEKEY);
             imgBitmapStr = intent.getStringExtra(Config.IMAGEBITMAPSTRING);
+            prodId = intent.getStringExtra(Config.PRODIDKEY);
 
             //product attributes
             jsonArrayAttributes = new JSONArray(allAttr);
 
             uploadItem();
         }
+    }
+
+    //listeners
+    public void addRowDetailsFieldUpdateProduct(View view) {
+        LayoutInflater inflater = (LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        final View rowView = inflater.inflate(R.layout.fieldrow,null);
+
+        parentLinearLayout.addView(rowView,parentLinearLayout.getChildCount() - 3);
+    }
+
+    public void deleteRowFieldUpdateProduct(View view) {
+        parentLinearLayout.removeView((View) view.getParent());
     }
 
     private ArrayList getItems()
@@ -98,8 +108,8 @@ public class SubmitProductActivity extends AppCompatActivity {
         {
             View innerLayout = parentLinearLayout.getChildAt(i);
 
-            EditText attrET = innerLayout.findViewById(R.id.attributeField);
-            EditText valET = innerLayout.findViewById(R.id.valueField);
+            EditText attrET = innerLayout.findViewById(R.id.attributeFieldUpdateProduct);
+            EditText valET = innerLayout.findViewById(R.id.valueFieldUpdateProduct);
 
             String attr = attrET.getText().toString();
             String val = valET.getText().toString().trim();
@@ -118,37 +128,25 @@ public class SubmitProductActivity extends AppCompatActivity {
                     attributes.add(object);
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    Toast.makeText(SubmitProductActivity.this,e.getMessage(),Toast.LENGTH_LONG).show();
+                    Toast.makeText(UpdateProductActivity.this,e.getMessage(),Toast.LENGTH_LONG).show();
                 }
             }
         }
         return attributes;
     }
-
-    public void addRowDetailsField(View view) {
-        LayoutInflater inflater = (LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        final View rowView = inflater.inflate(R.layout.fieldrow,null);
-
-        parentLinearLayout.addView(rowView,parentLinearLayout.getChildCount() - 3);
-    }
-
-    public void deleteRowField(View view) {
-        parentLinearLayout.removeView((View) view.getParent());
-    }
-
     private void uploadItem()
     {
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, Config.URL_UPLOAD_PRODUCT,
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, Config.URL_UPDATE_PRODUCT,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        Toast.makeText(SubmitProductActivity.this,response,Toast.LENGTH_LONG).show();
+                        Toast.makeText(UpdateProductActivity.this,response,Toast.LENGTH_LONG).show();
                     }
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(SubmitProductActivity.this,error.getMessage(),Toast.LENGTH_LONG).show();
+                        Toast.makeText(UpdateProductActivity.this,error.getMessage(),Toast.LENGTH_LONG).show();
                     }
                 })
         {
@@ -157,16 +155,23 @@ public class SubmitProductActivity extends AppCompatActivity {
                 Map<String, String> params = new HashMap<>();
 
                 productType="1";
+                params.put("prodId",prodId);
                 params.put("prodName",productName);
                 params.put("prodType",productType);
                 params.put("prodQty",productQty);
                 params.put("prodPrice",productPrice);
-                params.put("productImageStringBitmap", imgBitmapStr);
                 params.put("productAttributes", jsonArrayAttributes.toString());
+                if (imgBitmapStr != null)
+                {
+                    String oldimg = intent.getStringExtra(Config.OLDIMGLINK);
+
+                    params.put("productImageStringBitmap", imgBitmapStr);
+                    params.put("oldImage", oldimg);
+                }
 
                 return params;
             }
         };
-        VolleySingleton.getInstance(SubmitProductActivity.this).addToRequestQue(stringRequest);
+        VolleySingleton.getInstance(UpdateProductActivity.this).addToRequestQue(stringRequest);
     }
 }

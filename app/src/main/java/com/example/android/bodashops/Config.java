@@ -11,6 +11,7 @@ public class Config {
 
 
     public static final String URL_UPLOAD_PRODUCT = BASE_URL +"uploadproductdetails.php";
+    public static final String URL_UPDATE_PRODUCT = BASE_URL +"updateproductdetails.php";
     public static final String IMG_BASE_URL = BASE_URL+"images/";
     public static final String GET_TYPES_URL = BASE_URL+"getTypes.php";
 
@@ -22,4 +23,10 @@ public class Config {
     public static final String PRICEKEY = KEYPREFIX + "PRICE";
     public static final String TYPEKEY = KEYPREFIX + "TYPE";
     public static final String IMAGEBITMAPSTRING = KEYPREFIX + "IMGBITMAPSTRING";
+    public static final String PRODIDKEY = KEYPREFIX + "PRODID";
+
+
+    public static final String OLDIMGLINK = KEYPREFIX + "OLDIMGLINK";
+
+
 }

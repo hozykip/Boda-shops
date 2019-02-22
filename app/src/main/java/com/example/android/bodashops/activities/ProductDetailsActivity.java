@@ -21,6 +21,7 @@ import com.example.android.bodashops.VolleySingleton;
 import com.example.android.bodashops.adapters.ProductAttributesAdapter;
 import com.example.android.bodashops.model.ProductAttributesModel;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
 import android.content.Intent;
@@ -42,6 +43,7 @@ public class ProductDetailsActivity extends AppCompatActivity {
     AppCompatImageView mImageView;
     AppCompatTextView mProductName, mQty, mPrice;
     CollapsingToolbarLayout mCollapsingToolbarLayout;
+    private FloatingActionButton fab_delete, fab_edit;
 
     private ProgressBar bar;
     private CoordinatorLayout coordinatorLayout;
@@ -49,6 +51,8 @@ public class ProductDetailsActivity extends AppCompatActivity {
 
     private StringRequest request;
     private ArrayList<ProductAttributesModel> productsList;
+
+    private String id, title, qty, price, img_name, img_url;
 
 
     @Override
@@ -64,15 +68,38 @@ public class ProductDetailsActivity extends AppCompatActivity {
         bar = findViewById(R.id.pb_product_details);
         coordinatorLayout = findViewById(R.id.cd_layout_product_details);
         recyclerView = findViewById(R.id.recyclerView_product_details);
+        fab_edit = findViewById(R.id.fab_product_details_edit);
+        fab_delete = findViewById(R.id.fab_product_details_delete);
 
         Intent intent = getIntent();
 
-        String title = intent.getStringExtra("product_name");
-        String qty = intent.getStringExtra("product_qty");
-        String id = intent.getStringExtra("product_id");
-        String price = intent.getStringExtra("product_price");
-        String img_name = intent.getStringExtra("product_img");
-        String img_url = Config.IMG_BASE_URL + img_name;
+        title = intent.getStringExtra("product_name");
+        qty = intent.getStringExtra("product_qty");
+        id = intent.getStringExtra("product_id");
+        price = intent.getStringExtra("product_price");
+        img_name = intent.getStringExtra("product_img");
+        img_url = Config.IMG_BASE_URL + img_name;
+
+        fab_edit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ProductDetailsActivity.this, EditProductActivity.class);
+                intent.putExtra(Config.PRODIDKEY,id);
+                intent.putExtra(Config.PRODNAMEKEY,title);
+                intent.putExtra(Config.PRICEKEY,price);
+                intent.putExtra(Config.QTYKEY,qty);
+                intent.putExtra(Config.IMG_BASE_URL,img_name);
+
+                startActivity(intent);
+            }
+        });
+
+        fab_delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(ProductDetailsActivity.this,"Delete product: "+id,Toast.LENGTH_LONG).show();
+            }
+        });
 
         mCollapsingToolbarLayout.setTitle(title);
 

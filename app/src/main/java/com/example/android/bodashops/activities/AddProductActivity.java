@@ -63,6 +63,7 @@ public class AddProductActivity extends AppCompatActivity implements View.OnClic
         mNext = findViewById(R.id.AddProduct_NextBtn);
         mClear = findViewById(R.id.AddProduct_clearBtn);
 
+        setTypes();
 
 
         mNext.setOnClickListener(this);
@@ -72,7 +73,7 @@ public class AddProductActivity extends AppCompatActivity implements View.OnClic
     @Override
     protected void onStart() {
         super.onStart();
-        setTypes();
+        //setTypes();
     }
 
     private void setTypes()

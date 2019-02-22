@@ -3,11 +3,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.SubmitProductActivity">
+    tools:context=".activities.UpdateProductActivity">
 
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbarSubmitActivity"
+        android:id="@+id/toolbarUpdateProduct"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         style="@style/Base.ThemeOverlay.AppCompat.Light"
@@ -17,17 +17,16 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/toolbarSubmitActivity">
+        android:layout_below="@+id/toolbarUpdateProduct">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:id="@+id/parentLinearLayout">
+            android:id="@+id/parentLinearLayoutUpdateProduct">
 
 
             <LinearLayout
-
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:orientation="horizontal"
@@ -47,7 +46,7 @@
                     <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:id="@+id/attributeField"/>
+                        android:id="@+id/attributeFieldUpdateProduct"/>
                 </com.google.android.material.textfield.TextInputLayout>
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="0dp"
@@ -61,11 +60,11 @@
                     <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:id="@+id/valueField"/>
+                        android:id="@+id/valueFieldUpdateProduct"/>
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <ImageButton
-                    android:id="@+id/deleteRow"
+                    android:id="@+id/deleteRowUpdateProduct"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -74,7 +73,7 @@
                     android:layout_marginBottom="2dp"
                     android:layout_weight="2"
                     android:backgroundTint="@android:color/white"
-                    android:onClick="deleteRowField"
+                    android:onClick="deleteRowFieldUpdateProduct"
                     android:src="@drawable/ic_cancel_black_24dp"
                     android:tint="@android:color/holo_red_dark" />
             </LinearLayout>
@@ -87,10 +86,10 @@
                 android:paddingLeft="20dp"
                 android:paddingRight="20dp"
                 android:layout_gravity="center"
-                android:onClick="addRowDetailsField"
-                android:id="@+id/addRowBtn"/>
+                android:onClick="addRowDetailsFieldUpdateProduct"
+                android:id="@+id/addRowBtnUpdateProduct"/>
             <View
-                android:id="@+id/divider"
+                android:id="@+id/dividerUpdateProcuct"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:background="?android:attr/listDivider" />
@@ -100,7 +99,7 @@
                 android:text="Submit"
                 android:backgroundTint="@color/colorPrimaryMyTheme"
                 android:layout_gravity="right"
-                android:id="@+id/submitProductBtn"/>
+                android:id="@+id/submitProductBtnUpdateProduct"/>
 
         </LinearLayout>
 
