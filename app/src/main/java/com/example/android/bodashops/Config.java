@@ -14,6 +14,7 @@ public class Config {
     public static final String URL_UPDATE_PRODUCT = BASE_URL +"updateproductdetails.php";
     public static final String IMG_BASE_URL = BASE_URL+"images/";
     public static final String GET_TYPES_URL = BASE_URL+"getTypes.php";
+    public static final String DELETE_PRODUCT_URL = BASE_URL+"deleteProduct.php";
 
     public static final String KEYPREFIX = "com.example.android.bodashops";
 
