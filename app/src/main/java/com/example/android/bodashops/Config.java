@@ -8,6 +8,7 @@ public class Config {
 
     public static final String URL_PRODUCTS = BASE_URL+"getProducts.php";
     public static final String URL_PRODUCTS_ATTRIBUTES = BASE_URL+"getProductAttributes.php";
+    public static final String URL_ORDERS = BASE_URL+"orders.php";
 
 
     public static final String URL_UPLOAD_PRODUCT = BASE_URL +"uploadproductdetails.php";

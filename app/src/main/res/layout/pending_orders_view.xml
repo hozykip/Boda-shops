@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="8dp"
+    android:layout_marginLeft="8dp"
+    android:layout_marginRight="8dp"
+    >
+
+    <LinearLayout
+        android:id="@+id/ordersContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="8dp"
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+
+            android:background="@color/colorSecondaryAccentMyTheme">
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Order ID: "
+                android:textAlignment="textEnd"
+                android:layout_weight="6"
+                android:textSize="22sp"
+                android:textStyle="bold" />
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/orderId"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="1"
+                android:textAlignment="textStart"
+                android:layout_weight="3"
+                android:textSize="22sp"
+                android:textStyle="bold" />
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:src="@drawable/ic_cancel_black_24dp"/>
+        </LinearLayout>
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/dateOfBooking"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Feb 12, 2019 9:58 PM"
+            android:textAlignment="center"
+            android:textSize="18sp"
+            android:textStyle="normal"/>
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/deliveryStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Home delivery"
+            android:textAlignment="center"
+            android:textSize="18sp"
+            android:background="@color/colorPrimary"
+            android:textColor="@android:color/white"
+            android:textStyle="normal"/>
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/orderPerson"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Hozy Kip"
+            android:textAlignment="center"
+            android:textSize="20sp"
+            android:textColor="@android:color/black"
+            android:textStyle="normal"/>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Phone: "
+                android:textAlignment="center"
+                android:textSize="18sp"
+                android:textColor="@android:color/black"
+                android:textStyle="normal"/>
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/phoneNoField"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0702127533"
+                android:textAlignment="center"
+                android:textSize="18sp"
+                android:textColor="@android:color/black"
+                android:textStyle="normal"/>
+        </LinearLayout>
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/location"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Umoja II, Bee Centre"
+            android:textAlignment="center"
+            android:textSize="20sp"
+            android:textColor="@android:color/darker_gray"
+            android:textStyle="normal"/>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/itemsCount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="2"
+                android:textAlignment="center"
+                android:textSize="20sp"
+                android:textColor="@android:color/black"
+                android:textStyle="normal"/>
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=" Item(s) | Total: Ksh. "
+                android:textAlignment="center"
+                android:textSize="20sp"
+                android:textColor="@android:color/black"
+                android:textStyle="normal"/>
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/orderTotalPrice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="50.00"
+                android:textAlignment="center"
+                android:textSize="20sp"
+                android:textColor="@android:color/black"
+                android:textStyle="normal"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/holo_blue_dark"
+            android:orientation="horizontal">
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/priceAmt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Current status: "
+                android:textAlignment="center"
+                android:textSize="20sp"
+                android:textColor="@android:color/white"
+                android:textStyle="normal"/>
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/orderStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Order placed"
+                android:textAlignment="center"
+                android:textSize="20sp"
+                android:textColor="@android:color/white"
+                android:textStyle="normal"/>
+        </LinearLayout>
+    </LinearLayout>
+
+</com.google.android.material.card.MaterialCardView>

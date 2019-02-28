@@ -14,62 +14,45 @@
         android:background="?attr/colorPrimary"
         android:theme="@style/MyToolbar"/>
 
-    <LinearLayout
+    <!--<com.astuetz.PagerSlidingTabStrip
+        android:id="@+id/tabs"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        <androidx.cardview.widget.CardView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:padding="8dp"
-            app:cardBackgroundColor="@color/colorSecondaryAccentMyTheme"
-            android:layout_margin="@dimen/mtrl_card_spacing"
-            android:layout_weight="1"
-            app:cardCornerRadius="8dp">
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/colorPrimaryMyTheme"
+        app:pstsTabTextColor="@android:color/white"
+        android:textAlignment="center"
+        app:pstsIndicatorColor="@color/colorSecondaryMyTheme"
+        app:pstsIndicatorHeight="4dp"/>-->
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/app_name"
-                android:textAlignment="center"
-                android:textColor="@android:color/background_light"
-                android:textStyle="bold"/>
-        </androidx.cardview.widget.CardView>
-        <androidx.cardview.widget.CardView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:padding="8dp"
-            app:cardBackgroundColor="@color/colorSecondaryAccentMyTheme"
-            android:layout_margin="@dimen/mtrl_card_spacing"
-            android:layout_weight="1"
-            app:cardCornerRadius="8dp">
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tabs"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:layout_marginBottom="8dp">
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/app_name"
-                android:textAlignment="center"
-                android:textColor="@android:color/background_light"
-                android:textStyle="bold"/>
-        </androidx.cardview.widget.CardView>
-        <androidx.cardview.widget.CardView
-            android:layout_width="0dp"
+        <com.google.android.material.tabs.TabItem
             android:layout_height="wrap_content"
-            android:padding="8dp"
-            app:cardBackgroundColor="@color/colorSecondaryAccentMyTheme"
-            android:layout_margin="@dimen/mtrl_card_spacing"
-            android:layout_weight="1"
-            app:cardCornerRadius="8dp">
+            android:layout_width="wrap_content"
+            android:text="Pending"/>
+        <com.google.android.material.tabs.TabItem
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:text="Today"/>
+        <com.google.android.material.tabs.TabItem
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:text="All"/>
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/app_name"
-                android:textAlignment="center"
-                android:textColor="@android:color/background_light"
-                android:textStyle="bold"/>
-        </androidx.cardview.widget.CardView>
-    </LinearLayout>
+    </com.google.android.material.tabs.TabLayout>
+
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+
+
 
     <!-- TODO: Update orders fragment layout add main content display layout -->
 
