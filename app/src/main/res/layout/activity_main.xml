@@ -9,12 +9,9 @@
     tools:context=".activities.MainActivity">
 
 
-    <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginBottom="8dp"
-        android:orientation="vertical">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
@@ -23,17 +20,41 @@
             android:background="?attr/colorPrimary"
             android:theme="@style/MyToolbar"/>
 
-        <FrameLayout
-            android:id="@+id/frameLayout"
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tabsHome"
+            android:layout_below="@+id/toolbar"
+            android:layout_width="match_parent"
+            app:tabGravity="fill"
+            app:tabMode="fixed"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp">
+
+            <com.google.android.material.tabs.TabItem
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:icon="@drawable/ic_fiber_new_black_24dp"
+                android:text="Pending"/>
+            <com.google.android.material.tabs.TabItem
+                android:layout_height="wrap_content"
+                android:icon="@drawable/ic_today_black_24dp"
+                android:layout_width="wrap_content"
+                android:text="Today"/>
+            <com.google.android.material.tabs.TabItem
+                android:layout_height="wrap_content"
+                android:icon="@drawable/ic_view_list_black_24dp"
+                android:layout_width="wrap_content"
+                android:text="All"/>
+
+        </com.google.android.material.tabs.TabLayout>
+
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/pager"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:paddingLeft="8dp"
-            android:paddingTop="8dp"
-            android:paddingRight="8dp">
+            android:layout_below="@+id/tabsHome"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
-        </FrameLayout>
-
-    </LinearLayout>
+    </RelativeLayout>
 
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/nav_view"
