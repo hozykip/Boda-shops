@@ -17,7 +17,7 @@ public class Config {
     public static final String GET_TYPES_URL = BASE_URL+"getTypes.php";
     public static final String DELETE_PRODUCT_URL = BASE_URL+"deleteProduct.php";
 
-    public static final String KEYPREFIX = "com.example.android.bodashops";
+    private static final String KEYPREFIX = "com.example.android.bodashops.";
 
     //ADD PRODUCT ACTIVITY KEYS
     public static final String PRODNAMEKEY =KEYPREFIX + "PRODNAME";
@@ -29,6 +29,15 @@ public class Config {
 
 
     public static final String OLDIMGLINK = KEYPREFIX + "OLDIMGLINK";
+
+    //ORDER DETAILS
+    public static final String ORDERID = KEYPREFIX + "ORDERID";
+    public static final String BUYERNAME = KEYPREFIX + "BUYERNAME";
+    public static final String ORDERTOTALPRICE = KEYPREFIX + "ORDERTOTALPRICE";
+    public static final String ORDERLOCATION = KEYPREFIX + "ORDERLOCATION";
+    public static final String BUYERPHONE = KEYPREFIX + "BUYERPHONE";
+    public static final String ORDERTIME = KEYPREFIX + "ORDERTIME";
+    public static final String ITEMSCOUNT = KEYPREFIX + "ITEMSCOUNT";
 
 
 }

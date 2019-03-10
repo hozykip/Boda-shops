@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.android.bodashops.Config;
 import com.example.android.bodashops.R;
 import com.example.android.bodashops.activities.OrderDetailsActivity;
 import com.example.android.bodashops.model.OrdersModel;
@@ -42,11 +43,13 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.OrdersView
                     @Override
                     public void onClick(View v) {
                         Intent intent = new Intent(mCtx, OrderDetailsActivity.class);
-                        intent.putExtra("order_d", ordersList.get(viewHolder.getAdapterPosition()).getOrderId());
-                        intent.putExtra("buyer_name", ordersList.get(viewHolder.getAdapterPosition()).getBuyerName());
-                        intent.putExtra("total_price", ordersList.get(viewHolder.getAdapterPosition()).getTotalOrderPrice());
-                        intent.putExtra("order_location", ordersList.get(viewHolder.getAdapterPosition()).getOrderLocation());
-                        intent.putExtra("phone", ordersList.get(viewHolder.getAdapterPosition()).getBuyerPhone());
+                        intent.putExtra(Config.ORDERID, ordersList.get(viewHolder.getAdapterPosition()).getOrderId());
+                        intent.putExtra(Config.BUYERNAME, ordersList.get(viewHolder.getAdapterPosition()).getBuyerName());
+                        intent.putExtra(Config.ORDERTOTALPRICE, ordersList.get(viewHolder.getAdapterPosition()).getTotalOrderPrice());
+                        intent.putExtra(Config.ORDERLOCATION, ordersList.get(viewHolder.getAdapterPosition()).getOrderLocation());
+                        intent.putExtra(Config.BUYERPHONE, ordersList.get(viewHolder.getAdapterPosition()).getBuyerPhone());
+                        intent.putExtra(Config.ORDERTIME, ordersList.get(viewHolder.getAdapterPosition()).getOrderTime());
+                        intent.putExtra(Config.ITEMSCOUNT, ordersList.get(viewHolder.getAdapterPosition()).getOrdersCount());
                         mCtx.startActivity(intent);
                     }
                 }
