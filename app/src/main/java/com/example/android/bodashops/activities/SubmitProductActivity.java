@@ -3,6 +3,7 @@ package com.example.android.bodashops.activities;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -45,6 +46,7 @@ public class SubmitProductActivity extends AppCompatActivity {
     private JSONArray jsonArrayAttributes;
 
     private Toolbar toolbar;
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,7 +87,11 @@ public class SubmitProductActivity extends AppCompatActivity {
             //product attributes
             jsonArrayAttributes = new JSONArray(allAttr);
 
+            progressDialog = ProgressDialog.show(SubmitProductActivity.this, "",
+                    "Uploading data. Please wait...", true);
             uploadItem();
+        }else {
+            Toast.makeText(getApplicationContext(), "You must add at least one attribute",Toast.LENGTH_LONG).show();
         }
     }
 
@@ -140,12 +146,32 @@ public class SubmitProductActivity extends AppCompatActivity {
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        Toast.makeText(SubmitProductActivity.this,response,Toast.LENGTH_LONG).show();
+
+                        progressDialog.dismiss();
+                        JSONObject responseObj = null;
+
+                        try {
+                            responseObj = new JSONObject(response);
+
+                            String message = responseObj.getString("message");
+
+                            if(message.equalsIgnoreCase("succes")){
+                                Toast.makeText(getApplicationContext(), "Data saved successfully", Toast.LENGTH_LONG).show();
+                                startActivity(new Intent(SubmitProductActivity.this, ItemsActivity.class));
+                            }else {
+                                Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
+                            }
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
                     }
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
+
+                        progressDialog.dismiss();
                         Toast.makeText(SubmitProductActivity.this,error.getMessage(),Toast.LENGTH_LONG).show();
                     }
                 })

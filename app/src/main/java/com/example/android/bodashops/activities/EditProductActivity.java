@@ -36,6 +36,7 @@ import com.example.android.bodashops.Config;
 import com.example.android.bodashops.R;
 import com.example.android.bodashops.VolleySingleton;
 import com.google.android.material.textfield.TextInputEditText;
+import com.jaredrummler.materialspinner.MaterialSpinner;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -50,15 +51,13 @@ public class EditProductActivity extends AppCompatActivity
     String id,prodName, qty, price, img;
     private AppCompatImageView imageView;
     private TextInputEditText nameET, priceET, qtyET;
-    private Spinner spinner;
+    private MaterialSpinner spinner;
     private Button nxtBtn, clrBtn;
     private ImageButton cameraBtn;
     private ProgressBar progressBar;
 
     private String newName, newPrice, newQuantity, newTypeId;
 
-    private ArrayAdapter<String> adapter;
-    private ArrayList<String> producttypes;
 
     private Context context;
     private Integer REQUEST_CAMERA = 1, SELECT_FILE=0;
@@ -107,6 +106,7 @@ public class EditProductActivity extends AppCompatActivity
         clrBtn = findViewById(R.id.clearBtn_edit_product);
         cameraBtn = findViewById(R.id.ib_edit_product);
         progressBar = findViewById(R.id.progressBarEditProduct);
+        spinner = findViewById(R.id.spinner_edit_product);
 
         cameraBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -132,10 +132,51 @@ public class EditProductActivity extends AppCompatActivity
         priceET.setText(price);
         qtyET.setText(qty);
 
-        populateSpinner();
+        getTypes();
 
         Glide.with(getApplicationContext()).load(Config.IMG_BASE_URL + img).apply(options).into(imageView);
 
+    }
+
+    private void getTypes()
+    {
+        final ArrayList<String> producttypes = new ArrayList<>();
+        JsonArrayRequest jsonArrayRequest;
+        RequestQueue requestQueue;
+        jsonArrayRequest = new JsonArrayRequest(Config.GET_TYPES_URL,
+                new Response.Listener<JSONArray>() {
+                    @Override
+                    public void onResponse(JSONArray response) {
+
+                        for (int i = 0; i < response.length(); i++){
+                            try {
+                                JSONObject object = response.getJSONObject(i);
+                                String type = object.getString("type");
+
+                                producttypes.add(type);
+
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+
+                        populateSpinner(producttypes);
+
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        error.printStackTrace();
+                    }
+                });
+
+        VolleySingleton.getInstance(getApplicationContext()).addToRequestQue(jsonArrayRequest);
+    }
+
+    private void populateSpinner(ArrayList<String> productTypes)
+    {
+        spinner.setItems(productTypes);
     }
 
     private void clearFields()
@@ -191,53 +232,11 @@ public class EditProductActivity extends AppCompatActivity
 
         newPrice = strprice;
         newQuantity = strqty;
-        newTypeId = String.valueOf(spinner.getSelectedItemPosition());
+        newTypeId = String.valueOf(spinner.getSelectedIndex() + 1);
         return true;
     }
 
-    private void populateSpinner()
-    {
-        producttypes = new ArrayList<>();
-        JsonArrayRequest jsonArrayRequest;
-        RequestQueue requestQueue;
-        jsonArrayRequest = new JsonArrayRequest(Config.GET_TYPES_URL,
-                new Response.Listener<JSONArray>() {
-                    @Override
-                    public void onResponse(JSONArray response) {
 
-                        for (int i = 0; i < response.length(); i++){
-                            try {
-                                JSONObject object = response.getJSONObject(i);
-                                int index = Integer.parseInt(object.getString("typeId"));
-                                String type = object.getString("type");
-
-                                producttypes.add(type);
-
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-                        }
-
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        error.printStackTrace();
-                    }
-                });
-
-        VolleySingleton.getInstance(EditProductActivity.this).addToRequestQue(jsonArrayRequest);
-
-        adapter = new ArrayAdapter<String>(
-                this,
-                R.layout.spinner_types_layout,
-                producttypes
-        );
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner = findViewById(R.id.spinner_edit_product);
-        spinner.setAdapter(adapter);
-    }
 
     private void editImage()
     {

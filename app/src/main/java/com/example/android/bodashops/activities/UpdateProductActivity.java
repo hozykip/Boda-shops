@@ -1,10 +1,13 @@
 package com.example.android.bodashops.activities;
 
 import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -46,6 +49,8 @@ public class UpdateProductActivity extends AppCompatActivity {
 
     private Toolbar toolbar;
 
+    private ProgressDialog progressDialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -85,7 +90,11 @@ public class UpdateProductActivity extends AppCompatActivity {
             //product attributes
             jsonArrayAttributes = new JSONArray(allAttr);
 
+            progressDialog = ProgressDialog.show(UpdateProductActivity.this, "",
+                    "Uploading data. Please wait...", true);
             uploadItem();
+        }else {
+            Toast.makeText(getApplicationContext(), "You must add at least one attribute",Toast.LENGTH_LONG).show();
         }
     }
 
@@ -111,7 +120,7 @@ public class UpdateProductActivity extends AppCompatActivity {
             EditText attrET = innerLayout.findViewById(R.id.attributeFieldUpdateProduct);
             EditText valET = innerLayout.findViewById(R.id.valueFieldUpdateProduct);
 
-            String attr = attrET.getText().toString();
+            String attr = attrET.getText().toString().trim();
             String val = valET.getText().toString().trim();
 
             if (attr.isEmpty() || attr == "" || val.isEmpty() || val == "" )
@@ -140,13 +149,36 @@ public class UpdateProductActivity extends AppCompatActivity {
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        Toast.makeText(UpdateProductActivity.this,response,Toast.LENGTH_LONG).show();
+
+                        progressDialog.dismiss();
+
+                        JSONObject responseObj = null;
+
+                        try {
+                            responseObj = new JSONObject(response);
+
+                            String message = responseObj.getString("message");
+
+                            if(message.equalsIgnoreCase("success")){
+                                Toast.makeText(getApplicationContext(), "Data saved successfully", Toast.LENGTH_LONG).show();
+                                startActivity(new Intent(UpdateProductActivity.this, ItemsActivity.class));
+                            }else {
+                                Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
+                            }
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
                     }
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(UpdateProductActivity.this,error.getMessage(),Toast.LENGTH_LONG).show();
+
+                        progressDialog.dismiss();
+
+                        Toast.makeText(getApplicationContext(), error.getMessage(),Toast.LENGTH_LONG).show();
                     }
                 })
         {
@@ -154,7 +186,6 @@ public class UpdateProductActivity extends AppCompatActivity {
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();
 
-                productType="1";
                 params.put("prodId",prodId);
                 params.put("prodName",productName);
                 params.put("prodType",productType);

@@ -85,10 +85,10 @@ public class MainActivity extends AppCompatActivity implements
                                 myIntent = new Intent(MainActivity.this, ItemsActivity.class);
                                 startActivity(myIntent);
                                 break;
-                            case R.id.ordersmenu:
+                            /*case R.id.ordersmenu:
                                 myIntent = new Intent(MainActivity.this, ItemsActivity.class);
                                 startActivity(myIntent);
-                                break;
+                                break;*/
                             case R.id.notificationsmenu:
                                 myIntent = new Intent(MainActivity.this, ItemsActivity.class);
                                 startActivity(myIntent);
