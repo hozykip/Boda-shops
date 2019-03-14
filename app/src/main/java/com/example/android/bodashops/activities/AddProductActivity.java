@@ -21,6 +21,8 @@ import com.android.volley.toolbox.Volley;
 import com.example.android.bodashops.Config;
 import com.example.android.bodashops.ItemsHelper;
 import com.example.android.bodashops.R;
+import com.example.android.bodashops.VolleySingleton;
+import com.jaredrummler.materialspinner.MaterialSpinner;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -30,14 +32,15 @@ import java.util.ArrayList;
 
 public class AddProductActivity extends AppCompatActivity implements View.OnClickListener{
 
-    Spinner spinner;
+    //Spinner spinner;
+    private MaterialSpinner spinner;
     EditText mPrice, mProductName,mQty;
     Button mNext, mClear;
 
     private String name;
     private String quantity, price, typeId;
 
-    //ArrayList<String> types ;
+
     ArrayAdapter<String> adapter;
 
     @Override
@@ -56,27 +59,21 @@ public class AddProductActivity extends AppCompatActivity implements View.OnClic
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
 
-        spinner = (Spinner) findViewById(R.id.AddProduct_spinner_types);
+        spinner = (MaterialSpinner) findViewById(R.id.AddProduct_spinner_types);
         mPrice = findViewById(R.id.AddProduct_priceEt);
         mProductName = findViewById(R.id.AddProduct_nameET);
         mQty = findViewById(R.id.AddProduct_qtyET);
         mNext = findViewById(R.id.AddProduct_NextBtn);
         mClear = findViewById(R.id.AddProduct_clearBtn);
 
-        setTypes();
+        getTypes();
 
 
         mNext.setOnClickListener(this);
         mClear.setOnClickListener(this);
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        //setTypes();
-    }
-
-    private void setTypes()
+    private void getTypes()
     {
         final ArrayList<String> producttypes = new ArrayList<>();
         JsonArrayRequest jsonArrayRequest;
@@ -89,7 +86,6 @@ public class AddProductActivity extends AppCompatActivity implements View.OnClic
                         for (int i = 0; i < response.length(); i++){
                             try {
                                 JSONObject object = response.getJSONObject(i);
-                                int index = Integer.parseInt(object.getString("typeId"));
                                 String type = object.getString("type");
 
                                 producttypes.add(type);
@@ -98,6 +94,8 @@ public class AddProductActivity extends AppCompatActivity implements View.OnClic
                                 e.printStackTrace();
                             }
                         }
+
+                        setTypes(producttypes);
 
                     }
                 },
@@ -108,16 +106,17 @@ public class AddProductActivity extends AppCompatActivity implements View.OnClic
                     }
                 });
 
-        requestQueue = Volley.newRequestQueue(this);
-        requestQueue.add(jsonArrayRequest);
+        VolleySingleton.getInstance(getApplicationContext()).addToRequestQue(jsonArrayRequest);
+    }
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(
-                AddProductActivity.this,
-                android.R.layout.simple_spinner_item,
-                producttypes
-        );
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter);
+    @Override
+    protected void onStart() {
+        super.onStart();
+    }
+
+    private void setTypes(ArrayList<String> productTypes)
+    {
+        spinner.setItems(productTypes);
     }
 
     @Override
@@ -179,7 +178,7 @@ public class AddProductActivity extends AppCompatActivity implements View.OnClic
 
         price = strprice;
         quantity = strqty;
-        typeId = String.valueOf(spinner.getSelectedItemPosition());
+        typeId = String.valueOf(spinner.getSelectedIndex());
         return true;
     }
 }

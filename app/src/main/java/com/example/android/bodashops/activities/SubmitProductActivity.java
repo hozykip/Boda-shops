@@ -67,8 +67,6 @@ public class SubmitProductActivity extends AppCompatActivity {
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setTitle("Submit products");
 
-        //TODO: display old attributes on the fields
-
     }
 
     private void getProductDetails()
@@ -156,7 +154,6 @@ public class SubmitProductActivity extends AppCompatActivity {
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();
 
-                productType="1";
                 params.put("prodName",productName);
                 params.put("prodType",productType);
                 params.put("prodQty",productQty);
