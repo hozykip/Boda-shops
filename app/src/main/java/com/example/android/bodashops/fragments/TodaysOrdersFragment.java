@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -105,67 +106,72 @@ public class TodaysOrdersFragment extends Fragment {
             @Override
             public void onResponse(String response) {
 
+                JSONObject obj = null;
 
+                try{
+                    obj = new JSONObject(response);
 
-                JSONArray array;
-                try {
-                    array = new JSONArray(response);
+                    String outcome = obj.getString("operation");
+                    String message = obj.getString("message");
 
-                    for (int i = 0; i<array.length();i++)
-                    {
-                        JSONObject object = array.getJSONObject(i);
+                    if (TextUtils.equals(message,"Order dets!")){
 
-                        orderId = object.getString("orderId");
-                        buyerId = object.getString("buyerId");
-                        orderLocation = object.getString("location");
-                        orderStatus = object.getString("orderCompletion");
-                        orderTime = object.getString("orderTime");
+                        //fetch the array of orders
+                        JSONArray arr = obj.getJSONArray("orderDetails");
 
-                        //get buyer details
-                        JSONArray buyerDetails = new JSONArray(object.getString("buyerDets"));
-
-                        JSONObject buyerObj = buyerDetails.getJSONObject(0);
-                        fName = buyerObj.getString("fName");
-                        lName = buyerObj.getString("lName");
-                        phone = "+254"+buyerObj.getString("phone");
-                        buyerLocation = buyerObj.getString("buyerLocation");
-                        registeredOn = buyerObj.getString("registeredOn");
-
-                        //get orderdetails
-                        int totalOrderprice = 0;
-                        JSONArray orderDetails = new JSONArray(object.getString("orderDetails"));
-
-                        for (int j=0; j<orderDetails.length(); j++)
+                        //loop through the array fetching details
+                        for(int j = 0; j<arr.length(); j++)
                         {
-                            JSONObject orderObj = orderDetails.getJSONObject(j);
-                            int price = Integer.parseInt(orderObj.getString("price"));
-                            totalOrderprice += price;
+                            JSONObject obj2 = arr.getJSONObject(j);
+
+                            orderId = obj2.getString("orderId");
+                            buyerId = obj2.getString("buyerId");
+                            orderLocation = obj2.getString("location");
+                            orderStatus = obj2.getString("orderCompletion");
+                            orderTime = obj2.getString("orderTime");
+
+                            //get buyer dets
+                            JSONArray buyerDets = new JSONArray(obj2.getString("buyerDets"));
+                            JSONObject buyerObj = buyerDets.getJSONObject(0);
+                            fName = buyerObj.getString("fName");
+                            lName = buyerObj.getString("lName");
+                            phone = "+254"+buyerObj.getString("phone");
+                            buyerLocation = buyerObj.getString("buyerLocation");
+                            registeredOn = buyerObj.getString("registeredOn");
+
+                            //get orderdetails
+                            int totalOrderprice = 0;
+                            JSONArray orderDetails = new JSONArray(obj2.getString("orderDetails"));
+
+                            for (int k=0; k<orderDetails.length(); k++)
+                            {
+                                JSONObject orderObj = orderDetails.getJSONObject(k);
+                                int price = Integer.parseInt(orderObj.getString("price"));
+                                totalOrderprice += price;
+                            }
+                            orderItemsCount = String.valueOf(orderDetails.length());
+                            orderPrice = String.valueOf(totalOrderprice);
+
+                            String buyerName = fName+" "+lName;
+
+                            //create model object
+                            OrdersModel model = new OrdersModel(
+                                    orderId,buyerId,orderStatus,orderTime,orderPrice,buyerName,phone,orderItemsCount,orderLocation
+                            );
+                            //populate list
+                            ordersList.add(model);
                         }
-                        orderItemsCount = String.valueOf(orderDetails.length());
-                        orderPrice = String.valueOf(totalOrderprice);
 
-                        String buyerName = fName+" "+lName;
+                        setupRecyclerView(ordersList);
 
-                        //create model object
-                        OrdersModel model = new OrdersModel(
-                                orderId,buyerId,orderStatus,orderTime,orderPrice,buyerName,phone,orderItemsCount,orderLocation
-                        );
-                        //populate list
-                        ordersList.add(model);
-
-                        if (i == (array.length() - 1))
-                        {
-                            //Toast.makeText(getContext(),"The last",Toast.LENGTH_LONG).show();
-                        }
-
-
+                    }else {
+                        Toast.makeText(getContext(), "Server response error",Toast.LENGTH_LONG).show();
                     }
 
-                    setupRecyclerView(ordersList);
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
+                }catch (JSONException e){
+                    Toast.makeText(getContext(), e.getMessage(),Toast.LENGTH_LONG).show();
                 }
+
             }
 
         }, new Response.ErrorListener() {
@@ -177,7 +183,7 @@ public class TodaysOrdersFragment extends Fragment {
         {
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();
-                params.put("all","all");
+                params.put("today","all");
 
                 return params;
             }
