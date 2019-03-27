@@ -28,7 +28,6 @@ import java.io.IOException;
 public class ProductImageActivity extends AppCompatActivity {
 
     private AppCompatImageView imageView;
-    private ImageButton cameraBtn;
     private Button nxtBtn;
 
     private Context context;
@@ -59,8 +58,7 @@ public class ProductImageActivity extends AppCompatActivity {
         context = ProductImageActivity.this;
         imageView = findViewById(R.id.itemImage);
         nxtBtn = findViewById(R.id.nextBtnToDets);
-        cameraBtn = findViewById(R.id.cameraButton);
-        cameraBtn.setOnClickListener(new View.OnClickListener() {
+        imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 selectImage();
