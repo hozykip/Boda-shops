@@ -50,6 +50,8 @@ public class TodaysOrdersFragment extends Fragment {
     private String orderId, buyerId, orderLocation, orderStatus, orderTime, fName, lName, phone, buyerLocation,
             registeredOn, qty, orderPrice, orderItemsCount;
 
+    private ViewGroup parentContainer;
+
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
@@ -92,6 +94,8 @@ public class TodaysOrdersFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View parentView = inflater.inflate(R.layout.fragment_todays_orders, container, false);
+
+        parentContainer = container;
 
         recyclerView = parentView.findViewById(R.id.todaysOrdersRecyclerview);
         ordersList.clear();
@@ -165,7 +169,7 @@ public class TodaysOrdersFragment extends Fragment {
                         setupRecyclerView(ordersList);
 
                     }else {
-                        Toast.makeText(getContext(), "Server response error",Toast.LENGTH_LONG).show();
+                        Toast.makeText(getContext(), message,Toast.LENGTH_LONG).show();
                     }
 
                 }catch (JSONException e){
@@ -195,11 +199,7 @@ public class TodaysOrdersFragment extends Fragment {
     private void setupRecyclerView(ArrayList<OrdersModel> list)
     {
         if (list.isEmpty()){
-            //Snackbar.make(coordinatorLayout,"No items!",Snackbar.LENGTH_LONG).show();
-            Toast toast = Toast.makeText(getContext(),"No Orders!",Toast.LENGTH_LONG);
-            toast.setGravity(Gravity.CENTER,0,0);
-            toast.show();
-            //bar.setVisibility(View.GONE);
+
         }
         RecyclerView.Adapter mAdapter = new OrdersAdapter(getContext(),list);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
@@ -208,6 +208,13 @@ public class TodaysOrdersFragment extends Fragment {
         recyclerView.setLayoutManager(layoutManager);
 
         recyclerView.setAdapter(mAdapter);
+    }
+
+    private void showNoOrdersView() {
+        Toast toast = Toast.makeText(getContext(),"No Orders Today!",Toast.LENGTH_LONG);
+        toast.setGravity(Gravity.CENTER,0,0);
+        toast.show();
+        getLayoutInflater().inflate(R.layout.no_orders_today,parentContainer,false);
     }
 
 }

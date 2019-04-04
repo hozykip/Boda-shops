@@ -8,11 +8,17 @@ import androidx.core.content.ContextCompat;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.view.View;
 
 import com.example.android.bodashops.R;
+import com.example.android.bodashops.helpers.ConnectivityReceiver;
+import com.example.android.bodashops.helpers.MyApplication;
+import com.google.android.material.snackbar.Snackbar;
 
-public class SplashActivity extends AppCompatActivity {
+public class SplashActivity extends AppCompatActivity
+        implements ConnectivityReceiver.ConnectivityReceiverListener{
 
     private final int MY_PERMISSIONS_REQUEST_CAMERA = 1;
 
@@ -48,7 +54,7 @@ public class SplashActivity extends AppCompatActivity {
         } else {
             // Permission has already been granted
             //Toast.makeText(getApplicationContext(), "Permission ok", Toast.LENGTH_SHORT).show();
-            startMainActivity();
+            checkConnection();
         }
     }
 
@@ -63,7 +69,7 @@ public class SplashActivity extends AppCompatActivity {
                     // permission was granted, yay! Do the
                     // contacts-related task you need to do.
                     //Toast.makeText(getApplicationContext(),"Soso", Toast.LENGTH_SHORT).show();
-                    startMainActivity();
+                    checkConnection();
                 } else {
                     // permission denied, boo! Disable the
                     // functionality that depends on this permission.
@@ -76,9 +82,61 @@ public class SplashActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        MyApplication.getInstance().setConnectivityListener(this);
+    }
+
+    private void checkConnection() {
+        boolean isConnected = ConnectivityReceiver.isConnected();
+        showSnack(isConnected);
+    }
+
+    // Showing the status in Snackbar
+    private void showSnack(boolean isConnected) {
+        String message;
+        int color;
+        if (isConnected) {
+            //message = "Good! Connected to Internet";
+            startMainActivity();
+            color = Color.WHITE;
+        } else {
+            message = "Sorry! Not connected to internet";
+            color = Color.RED;
+            Snackbar snackbar = Snackbar
+                    .make(findViewById(R.id.SplashContainerView), message, Snackbar.LENGTH_LONG);
+
+        /*View sbView = snackbar.getView();
+        TextView textView = (TextView) sbView.findViewById(android.support.design.R.id.snackbar_text);
+        textView.setTextColor(color);*/
+            snackbar.show();
+        }
+    }
+
     private void startMainActivity(){
-        Intent intent = new Intent(SplashActivity.this, MainActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        startActivity(intent);
+        Thread thread = new Thread(){
+            @Override
+            public void run() {
+                try {
+                    sleep(1000);
+                }catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                finally {
+                    Intent intent = new Intent(SplashActivity.this, LoginActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    startActivity(intent);
+                }
+            }
+        };
+
+        thread.start();
+
+    }
+
+    @Override
+    public void onNetworkConnectionChanged(boolean isConnected) {
+        showSnack(isConnected);
     }
 }

@@ -19,13 +19,16 @@
         android:maxSdkVersion="18" />
 
     <application
+        android:name=".helpers.MyApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/MyTheme">
-        <!--<activity android:name=".activities.SplashActivity"></activity>-->
+        <activity android:name=".activities.ShopDetailsActivity"></activity>
+        <activity android:name=".activities.PersonalDetailsActivity" />
+        <activity android:name=".activities.LoginActivity" /> <!-- <activity android:name=".activities.SplashActivity"></activity> -->
         <activity android:name=".activities.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -40,7 +43,7 @@
         <activity android:name=".activities.ProductImageActivity" />
         <activity android:name=".activities.AddProductActivity" />
         <activity android:name=".activities.SubmitProductActivity" />
-        <activity android:name=".activities.ProductDetailsActivity"/>
+        <activity android:name=".activities.ProductDetailsActivity" />
         <activity android:name=".activities.MainActivity">
 
             <!--
@@ -50,13 +53,18 @@
             </intent-filter>
             -->
         </activity>
-        <!--<activity android:name=".activities.MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
+        <receiver
+            android:name=".helpers.ConnectivityReceiver"
+            android:enabled="true">
+            <intent-filter>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
             </intent-filter>
-        </activity>-->
+        </receiver>
+
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
     </application>
 
 </manifest>
