@@ -11,11 +11,13 @@ import com.anton46.stepsview.StepsView;
 import com.example.android.bodashops.R;
 
 public class RegistrationStepsAdapter extends ArrayAdapter<String> {
+    private int myPosition;
 
     private final String[] labels = {"Step 1", "Step 2", "Step 3", "Step 4"};
 
-    public RegistrationStepsAdapter(Context context, int resource) {
+    public RegistrationStepsAdapter(Context context, int resource, int pos) {
         super(context, resource);
+        myPosition = pos;
     }
 
     @Override
@@ -29,9 +31,9 @@ public class RegistrationStepsAdapter extends ArrayAdapter<String> {
             holder = (ViewHolder) convertView.getTag();
         }
 
-        holder.mLabel.setText(getItem(position));
+        holder.mLabel.setText(getItem(myPosition));
 
-        holder.mStepsView.setCompletedPosition(position % labels.length)
+        holder.mStepsView.setCompletedPosition(myPosition % labels.length)
                 .setLabels(labels)
                 .setBarColorIndicator(
                         getContext().getResources().getColor(R.color.material_blue_grey_800))

@@ -26,7 +26,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/MyTheme">
-        <activity android:name=".activities.ShopDetailsActivity"></activity>
+        <activity android:name=".activities.ConfirmDetailsActivity"></activity>
+        <activity android:name=".activities.ShopDetailsActivity" />
         <activity android:name=".activities.PersonalDetailsActivity" />
         <activity android:name=".activities.LoginActivity" /> <!-- <activity android:name=".activities.SplashActivity"></activity> -->
         <activity android:name=".activities.SplashActivity">

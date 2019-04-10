@@ -31,7 +31,7 @@ public class PersonalDetailsActivity extends AppCompatActivity {
 
         ListView mListView = (ListView) findViewById(R.id.myCustomList);
 
-        RegistrationStepsAdapter adapter = new RegistrationStepsAdapter(this, 0);
+        RegistrationStepsAdapter adapter = new RegistrationStepsAdapter(this, 0,0);
         adapter.addAll(views);
 
         mListView.setAdapter(adapter);
