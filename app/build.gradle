@@ -30,8 +30,8 @@ dependencies {
     implementation 'com.google.android.material:material:1.0.0-beta01'
 
     implementation 'com.android.volley:volley:1.1.1'
-    implementation 'com.google.firebase:firebase-core:16.0.6'
-    implementation 'com.google.firebase:firebase-auth:16.1.0'
+    implementation 'com.google.firebase:firebase-core:16.0.8'
+    implementation 'com.google.firebase:firebase-auth:16.2.1'
     implementation 'com.google.android.material:material:1.0.0'
     // https://mvnrepository.com/artifact/com.github.bumptech.glide/glide
     implementation group: 'com.github.bumptech.glide', name: 'glide', version: '4.8.0'
@@ -45,4 +45,9 @@ dependencies {
     implementation 'com.github.navasmdc:MaterialDesign:1.5@aar'
     implementation 'com.github.scottyab:showhidepasswordedittext:0.8'
     implementation 'com.anton46:stepsview:0.0.2'
+    implementation 'com.bigbangbutton:editcodeview:1.0.6'
+
+    implementation 'io.paperdb:paperdb:2.6'
 }
+
+apply plugin: 'com.google.gms.google-services'

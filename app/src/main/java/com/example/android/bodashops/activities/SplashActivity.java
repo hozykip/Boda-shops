@@ -11,6 +11,7 @@ import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
 import com.example.android.bodashops.R;
 import com.example.android.bodashops.helpers.ConnectivityReceiver;
@@ -20,6 +21,7 @@ import com.google.android.material.snackbar.Snackbar;
 public class SplashActivity extends AppCompatActivity
         implements ConnectivityReceiver.ConnectivityReceiverListener{
 
+    private final int MY_PERMISSIONS_REQUEST_LOCATION = 0;
     private final int MY_PERMISSIONS_REQUEST_CAMERA = 1;
 
     @Override
@@ -30,6 +32,18 @@ public class SplashActivity extends AppCompatActivity
     }
 
     private void checkPermission(){
+        if (ContextCompat.checkSelfPermission(getApplicationContext(),
+                        Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                &&
+                ContextCompat.checkSelfPermission(getApplicationContext(),
+                        Manifest.permission.ACCESS_COARSE_LOCATION)
+                        != PackageManager.PERMISSION_GRANTED) {
+
+            ActivityCompat.requestPermissions(SplashActivity.this,
+                    new String[]{Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION},
+                    MY_PERMISSIONS_REQUEST_LOCATION);
+
+        }
         if (ContextCompat.checkSelfPermission(getApplicationContext(),
                 Manifest.permission.CAMERA)
                 != PackageManager.PERMISSION_GRANTED) {
@@ -68,16 +82,22 @@ public class SplashActivity extends AppCompatActivity
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     // permission was granted, yay! Do the
                     // contacts-related task you need to do.
-                    //Toast.makeText(getApplicationContext(),"Soso", Toast.LENGTH_SHORT).show();
-                    checkConnection();
                 } else {
                     // permission denied, boo! Disable the
                     // functionality that depends on this permission.
                     //Toast.makeText(getApplicationContext(),"Denied", Toast.LENGTH_SHORT).show();
                     finish();
                 }
-                return;
 
+            }
+            case MY_PERMISSIONS_REQUEST_LOCATION:
+            {
+                if(grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+                    checkConnection();
+                }else {
+                    Toast.makeText(getApplicationContext(),"Location Denied", Toast.LENGTH_SHORT).show();
+                    finish();
+                }
             }
         }
     }

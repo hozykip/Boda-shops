@@ -16,6 +16,7 @@ public class Config {
     public static final String IMG_BASE_URL = BASE_URL+"images/";
     public static final String GET_TYPES_URL = BASE_URL+"getTypes.php";
     public static final String DELETE_PRODUCT_URL = BASE_URL+"deleteProduct.php";
+    public static final String OWNERANDSHOPREGISTRATION_URL = BASE_URL+"ownerAccount/android/shopOwnerRegistration.php";
 
     private static final String KEYPREFIX = "com.example.android.bodashops.";
 
@@ -38,6 +39,28 @@ public class Config {
     public static final String BUYERPHONE = KEYPREFIX + "BUYERPHONE";
     public static final String ORDERTIME = KEYPREFIX + "ORDERTIME";
     public static final String ITEMSCOUNT = KEYPREFIX + "ITEMSCOUNT";
+    
+    //SHARED PREFERENCES
+    public static final String PREF_NAME = KEYPREFIX+"registrationPref";
 
+    public static final int PRIVATE_MODE = 0;
 
+    public static final String FNAMEKEY = KEYPREFIX+"f_name";
+    public static final String LNAMEKEY = KEYPREFIX+"l_name";
+    public static final String EMAILKEY = KEYPREFIX+"email";
+    public static final String MOBILEKEY= KEYPREFIX+"mobile";
+    public static final String IDKEY = KEYPREFIX+"id";
+    public static final String PASSWORDKEY = KEYPREFIX+"password";
+    public static final String SHOPNAMEKEY = KEYPREFIX+"shopname";
+    public static final String SHOPDESCRIPTIONKEY = KEYPREFIX+"description";
+    public static final String SHOPLOCATIONKEY = KEYPREFIX+"location";
+
+    //LOCATION KEYS
+    public static final String LONGITUDE_KEY = KEYPREFIX+"LONGITUDE";
+    public static final String LATITUDE_KEY = KEYPREFIX+"LATITUDE";
+    public static final String COUNTRY_KEY = KEYPREFIX+"COUNTRY";
+    public static final String LOCALITY_KEY = KEYPREFIX+"LOCALITY";
+    public static final String SUBLOCALITY_KEY = KEYPREFIX+"SUB_LOCALITY";
+    public static final String ADMINAREA_KEY = KEYPREFIX+"ADMIN_AREA";
+    public static final String FEATURENAME_KEY = KEYPREFIX+"FEATURE_NAME";
 }

@@ -71,12 +71,12 @@
                     android:layout_weight="1"
                     android:text="First name"/>
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/firstNameConfirm"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="2">
 
                     <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/firstNameConfirm"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="number"
@@ -95,12 +95,12 @@
                     android:layout_weight="1"
                     android:text="Last name"/>
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/lastNameConfirm"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="2">
 
                     <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/lastNameConfirm"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="number"
@@ -117,14 +117,38 @@
                     android:layout_height="match_parent"
                     android:gravity="center_vertical"
                     android:layout_weight="1"
-                    android:text="Phone"/>
+                    android:text="ID Number"/>
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/phoneConfirm"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="2">
 
                     <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/idConfirm"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="number"
+                        android:hint="ID Number" />
+                </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:text="Phone"/>
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/phoneConfirm"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="number"
@@ -143,12 +167,12 @@
                     android:layout_weight="1"
                     android:text="Email"/>
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/emailConfirm"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="2">
 
                     <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/emailConfirm"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="textEmailAddress"
@@ -167,12 +191,12 @@
                     android:layout_weight="1"
                     android:text="Password"/>
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/passwordConfirm"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="2">
 
                     <com.scottyab.showhidepasswordedittext.ShowHidePasswordEditText
+                        android:id="@+id/passwordConfirm"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="Password" />
@@ -190,15 +214,15 @@
                     android:layout_weight="1"
                     android:text="Shop name"/>
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/shopNameConfirm"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="2">
 
                     <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/shopNameConfirm"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="textEmailAddress"
+                        android:inputType="text"
                         android:hint="Shop name" />
                 </com.google.android.material.textfield.TextInputLayout>
             </LinearLayout>
@@ -214,15 +238,15 @@
                     android:layout_weight="1"
                     android:text="Shop location"/>
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/locationConfirm"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="2">
 
                     <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/locationConfirm"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="textEmailAddress"
+                        android:inputType="text"
                         android:hint="Location" />
                 </com.google.android.material.textfield.TextInputLayout>
             </LinearLayout>
@@ -238,15 +262,15 @@
                     android:layout_weight="1"
                     android:text="Shop description"/>
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/shopDescriptionConfirm"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="2">
 
                     <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/shopDescriptionConfirm"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="textEmailAddress"
+                        android:inputType="text"
                         android:hint="Shop description" />
                 </com.google.android.material.textfield.TextInputLayout>
             </LinearLayout>
@@ -255,6 +279,18 @@
         </LinearLayout>
 
     </ScrollView>
+
+    <com.gc.materialdesign.views.Card
+        android:id="@+id/processingCard"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:visibility="gone"
+        android:elevation="2dp">
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </com.gc.materialdesign.views.Card>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab_goto_phone_verification_activity"

@@ -17,6 +17,8 @@
     <uses-permission
         android:name="android.permission.WRITE_EXTERNAL_STORAGE"
         android:maxSdkVersion="18" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission. ACCESS_COARSE_LOCATION" />
 
     <application
         android:name=".helpers.MyApplication"
@@ -26,7 +28,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/MyTheme">
-        <activity android:name=".activities.ConfirmDetailsActivity"></activity>
+        <activity android:name=".activities.PhoneVerificationActivity"></activity>
+        <activity android:name=".activities.ConfirmDetailsActivity" />
         <activity android:name=".activities.ShopDetailsActivity" />
         <activity android:name=".activities.PersonalDetailsActivity" />
         <activity android:name=".activities.LoginActivity" /> <!-- <activity android:name=".activities.SplashActivity"></activity> -->

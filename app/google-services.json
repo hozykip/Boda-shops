@@ -23,6 +23,14 @@
           }
         },
         {
+          "client_id": "1035975443602-5314r9q6hgfge8d44tnr6p1r1ag7135h.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.android.bodashops",
+            "certificate_hash": "a5dfece4d1213c5d34b11f7c70e2a112a34be596"
+          }
+        },
+        {
           "client_id": "1035975443602-it96fls6u9rs9rdrlkausocd8eim95an.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -33,20 +41,13 @@
         }
       ],
       "services": {
-        "analytics_service": {
-          "status": 1
-        },
         "appinvite_service": {
-          "status": 2,
           "other_platform_oauth_client": [
             {
               "client_id": "1035975443602-it96fls6u9rs9rdrlkausocd8eim95an.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
-        },
-        "ads_service": {
-          "status": 2
         }
       }
     }
