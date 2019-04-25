@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.example.android.bodashops.R;
+import com.example.android.bodashops.SessionManager;
 import com.example.android.bodashops.helpers.ConnectivityReceiver;
 import com.example.android.bodashops.helpers.MyApplication;
 import com.google.android.material.snackbar.Snackbar;
@@ -23,6 +24,7 @@ public class SplashActivity extends AppCompatActivity
 
     private final int MY_PERMISSIONS_REQUEST_LOCATION = 0;
     private final int MY_PERMISSIONS_REQUEST_CAMERA = 1;
+    private SessionManager sessionManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -119,7 +121,7 @@ public class SplashActivity extends AppCompatActivity
         int color;
         if (isConnected) {
             //message = "Good! Connected to Internet";
-            startMainActivity();
+            checkSessions();
             color = Color.WHITE;
         } else {
             message = "Sorry! Not connected to internet";
@@ -134,7 +136,17 @@ public class SplashActivity extends AppCompatActivity
         }
     }
 
-    private void startMainActivity(){
+    private void checkSessions() {
+        sessionManager = new SessionManager(this);
+        if (sessionManager.checkSession()){
+            routeTo(1);
+        }else {
+            routeTo(0);
+        }
+    }
+
+    private void routeTo(final int route){
+
         Thread thread = new Thread(){
             @Override
             public void run() {
@@ -144,7 +156,14 @@ public class SplashActivity extends AppCompatActivity
                     e.printStackTrace();
                 }
                 finally {
-                    Intent intent = new Intent(SplashActivity.this, LoginActivity.class);
+
+                    Intent intent;
+
+                    if (route == 0){
+                        intent = new Intent(SplashActivity.this, LoginActivity.class);
+                    }else {
+                        intent = new Intent(SplashActivity.this, MainActivity.class);
+                    }
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(intent);
                 }

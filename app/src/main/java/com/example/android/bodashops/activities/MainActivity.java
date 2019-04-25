@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -19,6 +20,8 @@ import androidx.viewpager.widget.ViewPager;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.example.android.bodashops.Prevalent;
+import com.example.android.bodashops.SessionManager;
 import com.example.android.bodashops.fragments.AllOrdersFragment;
 import com.example.android.bodashops.fragments.NotificationsFragment;
 import com.example.android.bodashops.R;
@@ -89,9 +92,8 @@ public class MainActivity extends AppCompatActivity implements
                                 myIntent = new Intent(MainActivity.this, ItemsActivity.class);
                                 startActivity(myIntent);
                                 break;*/
-                            case R.id.notificationsmenu:
-                                myIntent = new Intent(MainActivity.this, ItemsActivity.class);
-                                startActivity(myIntent);
+                            case R.id.logoutmenu:
+                                logoutOwner();
                                 break;
                         }
 
@@ -103,6 +105,18 @@ public class MainActivity extends AppCompatActivity implements
                     }
                 }
         );
+    }
+
+    private void logoutOwner() {
+        ProgressDialog progressDialog = ProgressDialog.show(this,"","Logging out "+ Prevalent.SESSIONFIRSTNAME, true);
+
+        //Server logout
+
+        SessionManager sessionManager = new SessionManager(this);
+        sessionManager.removeSession();
+        progressDialog.dismiss();
+        Toast.makeText(getApplicationContext(), "Logged out successfully", Toast.LENGTH_SHORT).show();
+        startActivity(new Intent(MainActivity.this, LoginActivity.class));
     }
 
     private void setupViewPager(ViewPager viewPager) {
