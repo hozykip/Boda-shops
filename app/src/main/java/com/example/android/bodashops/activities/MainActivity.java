@@ -16,12 +16,20 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
+import io.paperdb.Paper;
 
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.example.android.bodashops.Config;
 import com.example.android.bodashops.Prevalent;
 import com.example.android.bodashops.SessionManager;
+import com.example.android.bodashops.VolleySingleton;
 import com.example.android.bodashops.fragments.AllOrdersFragment;
 import com.example.android.bodashops.fragments.NotificationsFragment;
 import com.example.android.bodashops.R;
@@ -30,8 +38,13 @@ import com.example.android.bodashops.fragments.TodaysOrdersFragment;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class MainActivity extends AppCompatActivity implements
         NotificationsFragment.OnFragmentInteractionListener {
@@ -49,6 +62,8 @@ public class MainActivity extends AppCompatActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Paper.init(this);
 
         mDrawerLayout = findViewById(R.id.drawer_layout);
         final NavigationView mNavigationView = findViewById(R.id.nav_view);
@@ -108,15 +123,55 @@ public class MainActivity extends AppCompatActivity implements
     }
 
     private void logoutOwner() {
-        ProgressDialog progressDialog = ProgressDialog.show(this,"","Logging out "+ Prevalent.SESSIONFIRSTNAME, true);
+        final ProgressDialog progressDialog = ProgressDialog.show(this,"",
+                "Logging out "+ Paper.book().read(Prevalent.SESSIONFIRSTNAME), true);
 
         //Server logout
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, Config.OWNERLOGOUT_URL,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        JSONObject object = null;
 
-        SessionManager sessionManager = new SessionManager(this);
-        sessionManager.removeSession();
-        progressDialog.dismiss();
-        Toast.makeText(getApplicationContext(), "Logged out successfully", Toast.LENGTH_SHORT).show();
-        startActivity(new Intent(MainActivity.this, LoginActivity.class));
+                        try {
+                            object = new JSONObject(response);
+
+                            boolean error = object.getBoolean("error");
+                            String message = object.getString("message");
+
+                            if (!error){
+                                SessionManager sessionManager = new SessionManager(MainActivity.this);
+                                sessionManager.removeSession();
+                                progressDialog.dismiss();
+                                Toast.makeText(getApplicationContext(), "Logged out successfully", Toast.LENGTH_SHORT).show();
+                                startActivity(new Intent(MainActivity.this, LoginActivity.class));
+                            }else {
+                                progressDialog.dismiss();
+                                Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
+                            }
+                        } catch (JSONException e) {
+                            progressDialog.dismiss();
+                            Toast.makeText(getApplicationContext(), "JSON error: "+e.getMessage(), Toast.LENGTH_SHORT).show();
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        progressDialog.dismiss();
+                        Toast.makeText(MainActivity.this,error.getMessage(),Toast.LENGTH_LONG).show();
+                    }
+                })
+        {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                params.put("ownerId", (String) Paper.book().read(Prevalent.SESSIONOWNERID));
+                return params;
+            }
+        };
+        VolleySingleton.getInstance(MainActivity.this).addToRequestQue(stringRequest);
     }
 
     private void setupViewPager(ViewPager viewPager) {

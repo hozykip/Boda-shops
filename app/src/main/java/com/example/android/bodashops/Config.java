@@ -18,6 +18,7 @@ public class Config {
     public static final String DELETE_PRODUCT_URL = BASE_URL+"deleteProduct.php";
     public static final String OWNERANDSHOPREGISTRATION_URL = BASE_URL+"ownerAccount/android/shopOwnerRegistration.php";
     public static final String OWNERANDLOGIN_URL = BASE_URL+"ownerAccount/android/shopOwnerLogin.php";
+    public static final String OWNERLOGOUT_URL = BASE_URL+"ownerAccount/android/shopOwnerLogout.php";
 
     private static final String KEYPREFIX = "com.example.android.bodashops.";
 
