@@ -9,6 +9,7 @@ public class Config {
     public static final String URL_PRODUCTS = BASE_URL+"getProducts.php";
     public static final String URL_PRODUCTS_ATTRIBUTES = BASE_URL+"getProductAttributes.php";
     public static final String URL_ORDERS = BASE_URL+"orders.php";
+    public static final String URLCOMPLETE_ORDERS = BASE_URL+"orders/android/completeOrder.php";
 
 
     public static final String URL_UPLOAD_PRODUCT = BASE_URL +"uploadproductdetails.php";
@@ -19,6 +20,8 @@ public class Config {
     public static final String OWNERANDSHOPREGISTRATION_URL = BASE_URL+"ownerAccount/android/shopOwnerRegistration.php";
     public static final String OWNERANDLOGIN_URL = BASE_URL+"ownerAccount/android/shopOwnerLogin.php";
     public static final String OWNERLOGOUT_URL = BASE_URL+"ownerAccount/android/shopOwnerLogout.php";
+    public static final String ACCOUNT_SUMMARY_URL = BASE_URL+"accounts/android/getTodaysSummary.php";
+    public static final String ACCOUNT_INFO_URL = BASE_URL+"accounts/android/getAccountInfo.php";
 
     private static final String KEYPREFIX = "com.example.android.bodashops.";
 
@@ -41,7 +44,8 @@ public class Config {
     public static final String BUYERPHONE = KEYPREFIX + "BUYERPHONE";
     public static final String ORDERTIME = KEYPREFIX + "ORDERTIME";
     public static final String ITEMSCOUNT = KEYPREFIX + "ITEMSCOUNT";
-    
+    public static final String ORDERCOMPLETED = KEYPREFIX + "ORDER_COMPLETION";
+
     //SHARED PREFERENCES
     public static final String PREF_NAME = KEYPREFIX+"registrationPref";
     public static final String SESSIONPREF_NAME = KEYPREFIX+"sessionPref";

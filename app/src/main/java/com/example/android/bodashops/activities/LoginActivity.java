@@ -147,8 +147,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                 String phoneNo = data.getString("ownerPhone");
                                 String id = data.getString("idNo");
                                 String email = data.getString("email");
+                                String shopId = data.getString("shopId");
 
-                                sessionManager.createSession(phoneNo,ownerId,firstName,lastName,email,id);
+                                sessionManager.createSession(phoneNo,ownerId,firstName,lastName,email,id, shopId);
                                 Toast.makeText(getApplicationContext(), "Session created", Toast.LENGTH_SHORT).show();
                                 rememberOwner();
                                 startActivity(new Intent(LoginActivity.this, MainActivity.class));

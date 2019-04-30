@@ -50,6 +50,11 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.OrdersView
                         intent.putExtra(Config.BUYERPHONE, ordersList.get(viewHolder.getAdapterPosition()).getBuyerPhone());
                         intent.putExtra(Config.ORDERTIME, ordersList.get(viewHolder.getAdapterPosition()).getOrderTime());
                         intent.putExtra(Config.ITEMSCOUNT, ordersList.get(viewHolder.getAdapterPosition()).getOrdersCount());
+
+                        String orderCompletion = ordersList.get(viewHolder.getAdapterPosition()).getOrderCompletion();
+                        intent.putExtra(Config.ORDERCOMPLETED, orderCompletion);
+
+                        intent.putExtra(Config.ORDERCOMPLETED, ordersList.get(viewHolder.getAdapterPosition()).getOrderCompletion());
                         mCtx.startActivity(intent);
                     }
                 }

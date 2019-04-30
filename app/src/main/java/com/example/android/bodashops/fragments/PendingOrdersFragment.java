@@ -6,6 +6,7 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import io.paperdb.Paper;
 
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -19,6 +20,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.example.android.bodashops.Config;
+import com.example.android.bodashops.Prevalent;
 import com.example.android.bodashops.R;
 import com.example.android.bodashops.VolleySingleton;
 import com.example.android.bodashops.activities.ItemsActivity;
@@ -72,6 +74,7 @@ public class PendingOrdersFragment extends Fragment
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
         ordersList = new ArrayList<>();
+        Paper.init(getActivity());
     }
 
     @Override
@@ -95,11 +98,15 @@ public class PendingOrdersFragment extends Fragment
             @Override
             public void onResponse(String response) {
 
-
+                //Toast.makeText(getContext(),response,Toast.LENGTH_LONG).show();
 
                 JSONArray array;
                 try {
                     array = new JSONArray(response);
+
+                    if (array.length() == 0){
+                        dialog.dismiss();
+                    }
 
                     for (int i = 0; i<array.length();i++)
                     {
@@ -156,19 +163,23 @@ public class PendingOrdersFragment extends Fragment
 
                 } catch (JSONException e) {
                     e.printStackTrace();
+                    dialog.dismiss();
+                    Toast.makeText(getActivity(), "JSON Error", Toast.LENGTH_SHORT).show();
                 }
             }
 
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-
+                dialog.dismiss();
+                Toast.makeText(getActivity(), "Volley error in pending:\n "+error.getMessage(), Toast.LENGTH_SHORT).show();
             }
         })
         {
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();
-                params.put("all","all");
+                params.put("pending","pending");
+                params.put("shopId",(String) Paper.book().read(Prevalent.SESSIONSHOPID));
 
                 return params;
             }

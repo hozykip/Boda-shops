@@ -107,8 +107,14 @@ public class MainActivity extends AppCompatActivity implements
                                 myIntent = new Intent(MainActivity.this, ItemsActivity.class);
                                 startActivity(myIntent);
                                 break;*/
+                            case R.id.myAccount:
+                                startActivity(new Intent(MainActivity.this, AccountsActivity.class));
+                                break;
+                            case R.id.shopDetails:
+                                startActivity(new Intent(MainActivity.this, Shop.class));
+                                break;
                             case R.id.logoutmenu:
-                                logoutOwner();
+                                SessionManager.logoutOwner(MainActivity.this);
                                 break;
                         }
 
@@ -120,58 +126,6 @@ public class MainActivity extends AppCompatActivity implements
                     }
                 }
         );
-    }
-
-    private void logoutOwner() {
-        final ProgressDialog progressDialog = ProgressDialog.show(this,"",
-                "Logging out "+ Paper.book().read(Prevalent.SESSIONFIRSTNAME), true);
-
-        //Server logout
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, Config.OWNERLOGOUT_URL,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        JSONObject object = null;
-
-                        try {
-                            object = new JSONObject(response);
-
-                            boolean error = object.getBoolean("error");
-                            String message = object.getString("message");
-
-                            if (!error){
-                                SessionManager sessionManager = new SessionManager(MainActivity.this);
-                                sessionManager.removeSession();
-                                progressDialog.dismiss();
-                                Toast.makeText(getApplicationContext(), "Logged out successfully", Toast.LENGTH_SHORT).show();
-                                startActivity(new Intent(MainActivity.this, LoginActivity.class));
-                            }else {
-                                progressDialog.dismiss();
-                                Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
-                            }
-                        } catch (JSONException e) {
-                            progressDialog.dismiss();
-                            Toast.makeText(getApplicationContext(), "JSON error: "+e.getMessage(), Toast.LENGTH_SHORT).show();
-                            e.printStackTrace();
-                        }
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        progressDialog.dismiss();
-                        Toast.makeText(MainActivity.this,error.getMessage(),Toast.LENGTH_LONG).show();
-                    }
-                })
-        {
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> params = new HashMap<>();
-                params.put("ownerId", (String) Paper.book().read(Prevalent.SESSIONOWNERID));
-                return params;
-            }
-        };
-        VolleySingleton.getInstance(MainActivity.this).addToRequestQue(stringRequest);
     }
 
     private void setupViewPager(ViewPager viewPager) {

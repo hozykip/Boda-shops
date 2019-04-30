@@ -28,7 +28,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/MyTheme">
-        <activity android:name=".activities.PhoneVerificationActivity"></activity>
+        <activity android:name=".activities.AccountOrderDetails"></activity>
+        <activity android:name=".activities.Shop" />
+        <activity android:name=".activities.AccountsActivity" />
+        <activity android:name=".activities.PhoneVerificationActivity" />
         <activity android:name=".activities.ConfirmDetailsActivity" />
         <activity android:name=".activities.ShopDetailsActivity" />
         <activity android:name=".activities.PersonalDetailsActivity" />

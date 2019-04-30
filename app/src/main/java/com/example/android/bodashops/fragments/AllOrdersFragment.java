@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import io.paperdb.Paper;
 
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -18,6 +19,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.example.android.bodashops.Config;
+import com.example.android.bodashops.Prevalent;
 import com.example.android.bodashops.R;
 import com.example.android.bodashops.VolleySingleton;
 import com.example.android.bodashops.adapters.OrdersAdapter;
@@ -84,6 +86,7 @@ public class AllOrdersFragment extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
         ordersList = new ArrayList<>();
+        Paper.init(getActivity());
     }
 
     @Override
@@ -103,8 +106,6 @@ public class AllOrdersFragment extends Fragment {
         stringRequest = new StringRequest(Request.Method.POST, Config.URL_ORDERS, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-
-
 
                 JSONArray array;
                 try {
@@ -164,19 +165,21 @@ public class AllOrdersFragment extends Fragment {
 
                 } catch (JSONException e) {
                     e.printStackTrace();
+                    Toast.makeText(getActivity(), "JSONException error in all orders", Toast.LENGTH_SHORT).show();
                 }
             }
 
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-
+                Toast.makeText(getActivity(), "Volley error in all orders:\n"+error.getMessage(), Toast.LENGTH_SHORT).show();
             }
         })
         {
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();
                 params.put("all","all");
+                params.put("shopId",(String) Paper.book().read(Prevalent.SESSIONSHOPID));
 
                 return params;
             }

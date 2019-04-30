@@ -11,4 +11,5 @@ public class Prevalent {
     public static final String SESSIONIDNO = KEYPREFIX+"IDNO";
     public static final String SESSIONOWNERID = KEYPREFIX+"OWNERID";
     public static final String SESSIONEMAIL = KEYPREFIX+"EMAIL";
+    public static final String SESSIONSHOPID = KEYPREFIX+"SHOPID";
 }
