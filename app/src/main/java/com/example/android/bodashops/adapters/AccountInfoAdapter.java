@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.example.android.bodashops.Config;
 import com.example.android.bodashops.R;
+import com.example.android.bodashops.activities.AccountOrderDetails;
 import com.example.android.bodashops.activities.OrderDetailsActivity;
 import com.example.android.bodashops.model.AccountModel;
 
@@ -40,9 +41,8 @@ public class AccountInfoAdapter extends RecyclerView.Adapter<AccountInfoAdapter.
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent intent = new Intent(mCtx, OrderDetailsActivity.class);
+                        Intent intent = new Intent(mCtx, AccountOrderDetails.class);
                         intent.putExtra(Config.ORDERID, accountModelList.get(viewHolder.getAdapterPosition()).getOrderId());
-                        intent.putExtra(Config.ORDERCOMPLETED, true);
                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         mCtx.startActivity(intent);
                     }
