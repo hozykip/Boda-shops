@@ -22,6 +22,7 @@ public class Config {
     public static final String OWNERLOGOUT_URL = BASE_URL+"ownerAccount/android/shopOwnerLogout.php";
     public static final String ACCOUNT_SUMMARY_URL = BASE_URL+"accounts/android/getTodaysSummary.php";
     public static final String ACCOUNT_INFO_URL = BASE_URL+"accounts/android/getAccountInfo.php";
+    public static final String SHOP_INFO_URL = BASE_URL+"shopDetails/android/getShopDetails.php";
 
     private static final String KEYPREFIX = "com.example.android.bodashops.";
 

@@ -20,6 +20,42 @@
             android:background="?attr/colorPrimary"
             android:theme="@style/MyToolbar"/>
 
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tabsHome"
+            android:layout_below="@+id/toolbar"
+            android:layout_width="match_parent"
+            app:tabGravity="fill"
+            app:tabMode="fixed"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp">
+
+            <com.google.android.material.tabs.TabItem
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:text="Pending"/>
+            <com.google.android.material.tabs.TabItem
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:text="Today"/>
+
+        </com.google.android.material.tabs.TabLayout>
+
+        <androidx.coordinatorlayout.widget.CoordinatorLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/tabsHome"
+            android:padding="10dp">
+
+            <androidx.viewpager.widget.ViewPager
+                android:id="@+id/pager"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/tabsHome"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+
+        </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
     </RelativeLayout>
 
     <com.google.android.material.navigation.NavigationView
